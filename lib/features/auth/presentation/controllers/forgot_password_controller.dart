@@ -1,0 +1,32 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../core/result/result.dart';
+import '../../domain/auth_repository.dart';
+import '../providers/auth_providers.dart';
+import 'auth_form_state.dart';
+
+final StateNotifierProvider<ForgotPasswordController, AuthFormState>
+forgotPasswordControllerProvider =
+    StateNotifierProvider<ForgotPasswordController, AuthFormState>(
+      (ref) => ForgotPasswordController(ref.watch(authRepositoryProvider)),
+    );
+
+final class ForgotPasswordController extends StateNotifier<AuthFormState> {
+  ForgotPasswordController(this._authRepository) : super(const AuthFormState());
+
+  final AuthRepository _authRepository;
+
+  Future<void> submit(String email) async {
+    state = state.copyWith(status: AuthFormStatus.loading, errorMessage: null);
+
+    final result = await _authRepository.sendPasswordResetEmail(email);
+
+    state = result.fold(
+      (_) => state.copyWith(status: AuthFormStatus.success),
+      (failure) => state.copyWith(
+        status: AuthFormStatus.error,
+        errorMessage: failure.message,
+      ),
+    );
+  }
+}

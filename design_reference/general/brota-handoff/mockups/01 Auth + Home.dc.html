@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>body{margin:0;background:#eceae5;font-family:Inter,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}</style></helmet>
+
+<div style="padding:44px 48px 64px;display:flex;flex-direction:column;gap:52px">
+
+<div style="display:flex;flex-direction:column;gap:8px;max-width:760px">
+<div style="display:flex;align-items:center;gap:12px"><span style="font:600 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;padding:5px 8px;background:#052e16;color:#dcfce7;border-radius:5px">TANDA 1</span><span style="font:500 12px/1 Inter,sans-serif;color:rgba(5,46,22,.5)">Auth · Dashboard home · Perfil</span></div>
+<h1 style="margin:0;font:800 30px/1.15 Inter,sans-serif;color:#052e16;letter-spacing:-.02em">Brota móvil — estructura de pantallas</h1>
+<p style="margin:0;font:400 14px/1.6 Inter,sans-serif;color:rgba(5,46,22,.62);text-wrap:pretty">Distribución inspirada en las referencias (barra de stats arriba, tarjetas apiladas de borde suave, tab bar de 5, gamificación visible) con la paleta de Brota. Íconos y logo son placeholders neutros. Modo claro por defecto; oscuro en las pantallas clave (login y home).</p>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:baseline;gap:10px"><span style="font:700 13px/1 Inter,sans-serif;color:#052e16">B · Autenticación</span><span style="font:400 12px/1 Inter,sans-serif;color:rgba(5,46,22,.45)">crema #f2efea, exclusivo de auth · 5 estados</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start">
+
+<div style="display:flex;flex-direction:column;gap:10px">
+<span style="font:500 11px/1 ui-monospace,Menlo,monospace;color:rgba(5,46,22,.5)">7 · LOGIN</span>
+<div style="width:390px;height:844px;border-radius:44px;background:#f2efea;box-shadow:0 0 0 10px #1a1d24,0 22px 48px rgba(5,46,22,.22);overflow:hidden;display:flex;flex-direction:column;position:relative">
+<div style="height:54px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 30px 8px;flex:none"><span style="font:600 14px/1 Inter,sans-serif;color:#052e16">9:41</span><span style="display:flex;gap:5px;align-items:center"><span style="width:16px;height:10px;border-radius:2px;background:#052e16;opacity:.75"></span><span style="width:22px;height:11px;border-radius:3px;border:1.5px solid rgba(5,46,22,.6)"></span></span></div>
+<div style="flex:1;padding:20px 24px 32px;display:flex;flex-direction:column;gap:26px">
+<div style="display:flex;flex-direction:column;gap:22px">
+<div style="width:52px;height:52px;border-radius:15px;background:repeating-linear-gradient(135deg,#dcfce7 0 6px,#f0fdf4 6px 12px);border:1px solid #bbf7d0;display:flex;align-items:center;justify-content:center;font:500 7px/1 ui-monospace,monospace;color:rgba(5,46,22,.55);text-align:center">logo</div>
+<div style="display:flex;flex-direction:column;gap:8px"><h2 style="margin:0;font:700 27px/1.2 Inter,sans-serif;color:#052e16;letter-spacing:-.02em">Bienvenido de vuelta</h2><p style="margin:0;font:400 15px/1.5 Inter,sans-serif;color:rgba(5,46,22,.6)">Sigue construyendo tu camino.</p></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;flex-direction:column;gap:7px"><span style="font:500 12px/1 Inter,sans-serif;color:rgba(5,46,22,.7)">Correo</span><div style="height:52px;border-radius:14px;background:#fff;border:1px solid #bbf7d0;display:flex;align-items:center;padding:0 16px;font:400 15px/1 Inter,sans-serif;color:#052e16">sofia@correo.com</div></div>
+<div style="display:flex;flex-direction:column;gap:7px"><span style="font:500 12px/1 Inter,sans-serif;color:rgba(5,46,22,.7)">Contraseña</span><div style="height:52px;border-radius:14px;background:#fff;border:1.5px solid #16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.12);display:flex;align-items:center;justify-content:space-between;padding:0 16px"><span style="letter-spacing:.22em;font:600 15px/1 Inter,sans-serif;color:#052e16">••••••••</span><span style="width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(5,46,22,.4)"></span></div></div>
+<a href="#" style="align-self:flex-end;font:500 13px/1 Inter,sans-serif;color:#16a34a;text-decoration:none">¿Olvidaste tu contraseña?</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="height:54px;border-radius:15px;background:#16a34a;display:flex;align-items:center;justify-content:center;font:600 16px/1 Inter,sans-serif;color:#fff;box-shadow:0 6px 16px rgba(22,163,74,.28)">Entrar</div>
+<div style="display:flex;align-items:center;gap:12px"><span style="flex:1;height:1px;background:#dcd8d1"></span><span style="font:500 11px/1 Inter,sans-serif;color:rgba(5,46,22,.45)">o</span><span style="flex:1;height:1px;background:#dcd8d1"></span></div>
+<div style="height:54px;border-radius:15px;background:#fff;border:1px solid #e2ded7;display:flex;align-items:center;justify-content:center;gap:10px;font:500 15px/1 Inter,sans-serif;color:#052e16"><span style="width:18px;height:18px;border-radius:4px;background:repeating-linear-gradient(135deg,#e8e4dd 0 4px,#f4f1ec 4px 8px)"></span>Continuar con Google</div>
+</div>
+<div style="margin-top:auto;text-align:center;font:400 14px/1 Inter,sans-serif;color:rgba(5,46,22,.6)">¿No tienes cuenta? <a href="#" style="color:#16a34a;font-weight:600;text-decoration:none">Regístrate</a></div>
+</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px">
+<span style="font:500 11px/1 ui-monospace,Menlo,monospace;color:rgba(5,46,22,.5)">7b · LOGIN — MODO OSCURO</span>
+<div style="width:390px;height:844px;border-radius:44px;background:#0d110e;box-shadow:0 0 0 10px #1a1d24,0 22px 48px rgba(5,46,22,.22);overflow:hidden;display:flex;flex-direction:column">
+<div style="height:54px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 30px 8px;flex:none"><span style="font:600 14px/1 Inter,sans-serif;color:#f0fdf4">9:41</span><span style="display:flex;gap:5px;align-items:center"><span style="width:16px;height:10px;border-radius:2px;background:#f0fdf4;opacity:.8"></span><span style="width:22px;height:11px;border-radius:3px;border:1.5px solid rgba(240,253,244,.55)"></span></span></div>
+<div style="flex:1;padding:20px 24px 32px;display:flex;flex-direction:column;gap:26px">
+<div style="display:flex;flex-direction:column;gap:22px">
+<div style="width:52px;height:52px;border-radius:15px;background:repeating-linear-gradient(135deg,#16281a 0 6px,#0f1a11 6px 12px);border:1px solid #1f3a24;display:flex;align-items:center;justify-content:center;font:500 7px/1 ui-monospace,monospace;color:rgba(240,253,244,.5)">logo</div>
+<div style="display:flex;flex-direction:column;gap:8px"><h2 style="margin:0;font:700 27px/1.2 Inter,sans-serif;color:#f0fdf4;letter-spacing:-.02em">Bienvenido de vuelta</h2><p style="margin:0;font:400 15px/1.5 Inter,sans-serif;color:rgba(240,253,244,.55)">Sigue construyendo tu camino.</p></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;flex-direction:column;gap:7px"><span style="font:500 12px/1 Inter,sans-serif;color:rgba(240,253,244,.65)">Correo</span><div style="height:52px;border-radius:14px;background:#1a1d24;border:1px solid #2c3140;display:flex;align-items:center;padding:0 16px;font:400 15px/1 Inter,sans-serif;color:#f0fdf4">sofia@correo.com</div></div>
+<div style="display:flex;flex-direction:column;gap:7px"><span style="font:500 12px/1 Inter,sans-serif;color:rgba(240,253,244,.65)">Contraseña</span><div style="height:52px;border-radius:14px;background:#1a1d24;border:1.5px solid #4ade80;display:flex;align-items:center;justify-content:space-between;padding:0 16px"><span style="letter-spacing:.22em;font:600 15px/1 Inter,sans-serif;color:#f0fdf4">••••••••</span><span style="width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(240,253,244,.35)"></span></div></div>
+<a href="#" style="align-self:flex-end;font:500 13px/1 Inter,sans-serif;color:#4ade80;text-decoration:none">¿Olvidaste tu contraseña?</a>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="height:54px;border-radius:15px;background:#16a34a;display:flex;align-items:center;justify-content:center;font:600 16px/1 Inter,sans-serif;color:#fff">Entrar</div>
+<div style="display:flex;align-items:center;gap:12px"><span style="flex:1;height:1px;background:#1f2a22"></span><span style="font:500 11px/1 Inter,sans-serif;color:rgba(240,253,244,.4)">o</span><span style="flex:1;height:1px;background:#1f2a22"></span></div>
+<div style="height:54px;border-radius:15px;background:#1a1d24;border:1px solid #2c3140;display:flex;align-items:center;justify-content:center;gap:10px;font:500 15px/1 Inter,sans-serif;color:#f0fdf4"><span style="width:18px;height:18px;border-radius:4px;background:repeating-linear-gradient(135deg,#2c3140 0 4px,#232732 4px 8px)"></span>Continuar con Google</div>
+</div>
+<div style="margin-top:auto;text-align:center;font:400 14px/1 Inter,sans-serif;color:rgba(240,253,244,.55)">¿No tienes cuenta? <a href="#" style="color:#4ade80;font-weight:600;text-decoration:none">Regístrate</a></div>
+</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px">
+<span style="font:500 11px/1 ui-monospace,Menlo,monospace;color:rgba(5,46,22,.5)">8 · REGISTRO</span>
+<div style="width:390px;height:844px;border-radius:44px;background:#f2efea;box-shadow:0 0 0 10px #1a1d24,0 22px 48px rgba(5,46,22,.22);overflow:hidden;display:flex;flex-direction:column">
+<div style="height:54px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 30px 8px;flex:none"><span style="font:600 14px/1 Inter,sans-serif;color:#052e16">9:41</span><span style="display:flex;gap:5px;align-items:center"><span style="width:16px;height:10px;border-radius:2px;background:#052e16;opacity:.75"></span><span style="width:22px;height:11px;border-radius:3px;border:1.5px solid rgba(5,46,22,.6)"></span></span></div>
+<div style="padding:8px 24px 0;display:flex;align-items:center;gap:14px;flex:none"><span style="width:38px;height:38px;border-radius:12px;background:#fff;border:1px solid #e2ded7;display:flex;align-items:center;justify-content:center;font:600 16px/1 Inter,sans-serif;color:#052e16">‹</span><span style="flex:1;height:5px;border-radius:3px;background:#e2ded7;overflow:hidden;display:block"><span style="display:block;width:50%;height:100%;background:#16a34a;border-radius:3px"></span></span><span style="font:500 11px/1 Inter,sans-serif;color:rgba(5,46,22,.55)">Paso 1 de 2</span></div>
+<div style="flex:1;padding:24px 24px 32px;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-direction:column;gap:8px"><h2 style="margin:0;font:700 27px/1.2 Inter,sans-serif;color:#052e16;letter-spacing:-.02em">Crea tu cuenta</h2><p style="margin:0;font:400 15px/1.5 Inter,sans-serif;color:rgba(5,46,22,.6)">Gratis siempre. Te toma dos minutos.</p></div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;flex-direction:column;gap:7px"><span style="font:500 12px/1 Inter,sans-serif;color:rgba(5,46,22,.7)">Nombre</span><div style="height:52px;border-radius:14px;background:#fff;border:1px solid #bbf7d0;display:flex;align-items:center;padding:0 16px;font:400 15px/1 Inter,sans-serif;color:#052e16">Sofía Restrepo</div></div>
+<div style="display:flex;flex-direction:column;gap:7px"><span style="font:500 12px/1 Inter,sans-serif;color:rgba(5,46,22,.7)">Correo</span><div style="height:52px;border-radius:14px;background:#fff;border:1px solid #bbf7d0;display:flex;align-items:center;padding:0 16px;font:400 15px/1 Inter,sans-serif;color:rgba(5,46,22,.35)">tu@correo.com</div></div>
+<div style="display:flex;flex-direction:column;gap:9px">
+<span style="font:500 12px/1 Inter,sans-serif;color:rgba(5,46,22,.7)">Contraseña</span>
+<div style="height:52px;border-radius:14px;background:#fff;border:1px solid #bbf7d0;display:flex;align-items:center;justify-content:space-between;padding:0 16px"><span style="letter-spacing:.22em;font:600 15px/1 Inter,sans-serif;color:#052e16">•••••••</span><span style="width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(5,46,22,.4)"></span></div>
+<div style="display:flex;align-items:center;gap:8px"><span style="display:flex;gap:4px;flex:1"><span style="flex:1;height:4px;border-radius:2px;background:#16a34a"></span><span style="flex:1;height:4px;border-radius:2px;background:#16a34a"></span><span style="flex:1;height:4px;border-radius:2px;background:#e2ded7"></span></span><span style="font:500 11px/1 Inter,sans-serif;color:#15803d">Buena</span></div>
+</div>
+</div>
+<div style="display:flex;gap:11px;align-items:flex-start"><span style="width:22px;height:22px;border-radius:7px;background:#16a34a;flex:none;display:flex;align-items:center;justify-content:center;font:700 12px/1 Inter,sans-serif;color:#fff">✓</span><span style="font:400 13px/1.5 Inter,sans-serif;color:rgba(5,46,22,.65)">Acepto los <a href="#" style="color:#16a34a;text-decoration:none">Términos</a> y la <a href="#" style="color:#16a34a;text-decoration:none">Política de privacidad</a>.</span></div>
+<div style="height:54px;border-radius:15px;background:#16a34a;display:flex;align-items:center;justify-content:center;font:600 16px/1 Inter,sans-serif;color:#fff;box-shadow:0 6px 16px rgba(22,163,74,.28)">Crear cuenta</div>
+<div style="margin-top:auto;text-align:center;font:400 14px/1 Inter,sans-serif;color:rgba(5,46,22,.6)">¿Ya tienes cuenta? <a href="#" style="color:#16a34a;font-weight:600;text-decoration:none">Entra</a></div>
+</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px">
+<span style="font:500 11px/1 ui-monospace,Menlo,monospace;color:rgba(5,46,22,.5)">9 · RECUPERAR CONTRASEÑA</span>
+<div style="width:390px;height:844px;border-radius:44px;background:#f2efea;box-shadow:0 0 0 10px #1a1d24,0 22px 48px rgba(5,46,22,.22);overflow:hidden;display:flex;flex-direction:column">
+<div style="height:54px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 30px 8px;flex:none"><span style="font:600 14px/1 Inter,sans-serif;color:#052e16">9:41</span><span style="display:flex;gap:5px;align-items:center"><span style="width:16px;height:10px;border-radius:2px;background:#052e16;opacity:.75"></span><span style="width:22px;height:11px;border-radius:3px;border:1.5px solid rgba(5,46,22,.6)"></span></span></div>
+<div style="padding:8px 24px 0;flex:none"><span style="width:38px;height:38px;border-radius:12px;background:#fff;border:1px solid #e2ded7;display:flex;align-items:center;justify-content:center;font:600 16px/1 Inter,sans-serif;color:#052e16">‹</span></div>
+<div style="flex:1;padding:32px 24px;display:flex;flex-direction:column;gap:26px">
+<div style="width:64px;height:64px;border-radius:20px;background:#dcfce7;border:1px solid #bbf7d0;display:flex;align-items:center;justify-content:center"><span style="width:26px;height:19px;border:2px solid #16a34a;border-radius:4px;display:block"></span></div>
+<div style="display:flex;flex-direction:column;gap:10px"><h2 style="margin:0;font:700 27px/1.2 Inter,sans-serif;color:#052e16;letter-spacing:-.02em">Recupera tu acceso</h2><p style="margin:0;font:400 15px/1.55 Inter,sans-serif;color:rgba(5,46,22,.6);text-wrap:pretty">Escribe tu correo y te enviamos un enlace para crear una contraseña nueva.</p></div>
+<div style="display:flex;flex-direction:column;gap:7px"><span style="font:500 12px/1 Inter,sans-serif;color:rgba(5,46,22,.7)">Correo</span><div style="height:52px;border-radius:14px;background:#fff;border:1.5px solid #16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.12);display:flex;align-items:center;padding:0 16px;font:400 15px/1 Inter,sans-serif;color:#052e16">sofia@correo.com</div></div>
+<div style="height:54px;border-radius:15px;background:#16a34a;display:flex;align-items:center;justify-content:center;font:600 16px/1 Inter,sans-serif;color:#fff;box-shadow:0 6px 16px rgba(22,163,74,.28)">Enviar enlace</div>
+<div style="margin-top:auto;text-align:center;font:500 14px/1 Inter,sans-serif;color:#16a34a">Volver a entrar</div>
+</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px">
+<span style="font:500 11px/1 ui-monospace,Menlo,monospace;color:rgba(5,46,22,.5)">9b · ENLACE ENVIADO</span>
+<div style="width:390px;height:844px;border-radius:44px;background:#f2efea;box-shadow:0 0 0 10px #1a1d24,0 22px 48px rgba(5,46,22,.22);overflow:hidden;display:flex;flex-direction:column">
+<div style="height:54px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 30px 8px;flex:none"><span style="font:600 14px/1 Inter,sans-serif;color:#052e16">9:41</span><span style="display:flex;gap:5px;align-items:center"><span style="width:16px;height:10px;border-radius:2px;background:#052e16;opacity:.75"></span><span style="width:22px;height:11px;border-radius:3px;border:1.5px solid rgba(5,46,22,.6)"></span></span></div>
+<div style="flex:1;padding:0 24px 40px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;text-align:center">
+<div style="width:150px;height:130px;border-radius:20px;background:repeating-linear-gradient(135deg,#dcfce7 0 8px,#f0fdf4 8px 16px);border:1px solid #bbf7d0;display:flex;align-items:center;justify-content:center;font:500 10px/1.4 ui-monospace,monospace;color:rgba(5,46,22,.55)">ilustración<br>correo enviado</div>
+<div style="display:flex;flex-direction:column;gap:10px"><h2 style="margin:0;font:700 25px/1.25 Inter,sans-serif;color:#052e16;letter-spacing:-.02em">Revisa tu correo</h2><p style="margin:0;font:400 15px/1.55 Inter,sans-serif;color:rgba(5,46,22,.6);text-wrap:pretty">Enviamos el enlace a <strong style="color:#052e16">sofia@correo.com</strong>. Caduca en 30 minutos.</p></div>
+<div style="width:100%;display:flex;flex-direction:column;gap:12px;margin-top:8px">
+<div style="height:54px;border-radius:15px;background:#16a34a;display:flex;align-items:center;justify-content:center;font:600 16px/1 Inter,sans-serif;color:#fff">Abrir mi correo</div>
+<div style="height:54px;border-radius:15px;background:transparent;border:1px solid #cfe9d6;display:flex;align-items:center;justify-content:center;font:500 15px/1 Inter,sans-serif;color:#15803d">Reenviar en 0:42</div>
+</div>
+</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px">
+<span style="font:500 11px/1 ui-monospace,Menlo,monospace;color:rgba(5,46,22,.5)">10 · RESET DE CONTRASEÑA</span>
+<div style="width:390px;height:844px;border-radius:44px;background:#f2efea;box-shadow:0 0 0 10px #1a1d24,0 22px 48px rgba(5,46,22,.22);overflow:hidden;display:flex;flex-direction:column">
+<div style="height:54px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 30px 8px;flex:none"><span style="font:600 14px/1 Inter,sans-serif;color:#052e16">9:41</span><span style="display:flex;gap:5px;align-items:center"><span style="width:16px;height:10px;border-radius:2px;background:#052e16;opacity:.75"></span><span style="width:22px;height:11px;border-radius:3px;border:1.5px solid rgba(5,46,22,.6)"></span></span></div>
+<div style="flex:1;padding:28px 24px 32px;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-direction:column;gap:10px"><h2 style="margin:0;font:700 27px/1.2 Inter,sans-serif;color:#052e16;letter-spacing:-.02em">Crea una contraseña nueva</h2><p style="margin:0;font:400 15px/1.55 Inter,sans-serif;color:rgba(5,46,22,.6)">Última vez, lo prometemos.</p></div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;flex-direction:column;gap:7px"><span style="font:500 12px/1 Inter,sans-serif;color:rgba(5,46,22,.7)">Contraseña nueva</span><div style="height:52px;border-radius:14px;background:#fff;border:1.5px solid #16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.12);display:flex;align-items:center;justify-content:space-between;padding:0 16px"><span style="letter-spacing:.22em;font:600 15px/1 Inter,sans-serif;color:#052e16">•••••••••</span><span style="width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(5,46,22,.4)"></span></div></div>
+<div style="display:flex;flex-direction:column;gap:7px"><span style="font:500 12px/1 Inter,sans-serif;color:rgba(5,46,22,.7)">Confírmala</span><div style="height:52px;border-radius:14px;background:#fff;border:1px solid #bbf7d0;display:flex;align-items:center;justify-content:space-between;padding:0 16px"><span style="letter-spacing:.22em;font:600 15px/1 Inter,sans-serif;color:#052e16">•••••••••</span><span style="width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(5,46,22,.4)"></span></div></div>
+</div>
+<div style="background:#fff;border:1px solid #bbf7d0;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:11px">
+<div style="display:flex;align-items:center;gap:10px"><span style="width:20px;height:20px;border-radius:50%;background:#16a34a;display:flex;align-items:center;justify-content:center;font:700 11px/1 Inter,sans-serif;color:#fff">✓</span><span style="font:400 13px/1 Inter,sans-serif;color:#052e16">Mínimo 8 caracteres</span></div>
+<div style="display:flex;align-items:center;gap:10px"><span style="width:20px;height:20px;border-radius:50%;background:#16a34a;display:flex;align-items:center;justify-content:center;font:700 11px/1 Inter,sans-serif;color:#fff">✓</span><span style="font:400 13px/1 Inter,sans-serif;color:#052e16">Una mayúscula</span></div>
+<div style="display:flex;align-items:center;gap:10px"><span style="width:20px;height:20px;border-radius:50%;border:1.5px solid #cfe9d6"></span><span style="font:400 13px/1 Inter,sans-serif;color:rgba(5,46,22,.5)">Un número o símbolo</span></div>
+</div>
+<div style="height:54px;border-radius:15px;background:#16a34a;display:flex;align-items:center;justify-content:center;font:600 16px/1 Inter,sans-serif;color:#fff;box-shadow:0 6px 16px rgba(22,163,74,.28)">Guardar y entrar</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:baseline;gap:10px"><span style="font:700 13px/1 Inter,sans-serif;color:#052e16">C · Dashboard home y perfil</span><span style="font:400 12px/1 Inter,sans-serif;color:rgba(5,46,22,.45)">gradiente verde claro · tab bar de 5 · gamificación completa</span></div>
+<div style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start">
+
+<div style="display:flex;flex-direction:column;gap:10px">
+<span style="font:500 11px/1 ui-monospace,Menlo,monospace;color:rgba(5,46,22,.5)">11 · HOME</span>
+<div style="width:390px;height:844px;border-radius:44px;background:linear-gradient(#f0fdf4,#dcfce7);box-shadow:0 0 0 10px #1a1d24,0 22px 48px rgba(5,46,22,.22);overflow:hidden;display:flex;flex-direction:column">
+<div style="height:54px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 30px 8px;flex:none"><span style="font:600 14px/1 Inter,sans-serif;color:#052e16">9:41</span><span style="display:flex;gap:5px;align-items:center"><span style="width:16px;height:10px;border-radius:2px;background:#052e16;opacity:.75"></span><span style="width:22px;height:11px;border-radius:3px;border:1.5px solid rgba(5,46,22,.6)"></span></span></div>
+
+<div style="padding:6px 20px 10px;display:flex;align-items:center;gap:12px;flex:none">
+<span style="width:40px;height:40px;border-radius:50%;background:repeating-linear-gradient(135deg,#dcfce7 0 5px,#f0fdf4 5px 10px);border:1px solid #bbf7d0;flex:none"></span>
+<span style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font:400 12px/1 Inter,sans-serif;color:rgba(5,46,22,.55)">Buenas tardes,</span><span style="font:700 16px/1 Inter,sans-serif;color:#052e16">Sofía</span></span>
+<span style="width:38px;height:38px;border-radius:12px;background:#fff;border:1px solid #bbf7d0;display:flex;align-items:center;justify-content:center;position:relative"><span style="width:14px;height:14px;border:1.6px solid #052e16;border-radius:5px 5px 3px 3px;display:block"></span><span style="position:absolute;top:9px;right:10px;width:7px;height:7px;border-radius:50%;background:#16a34a;border:1.5px solid #fff"></span></span>
+<span style="width:38px;height:38px;border-radius:12px;background:#fff;border:1px solid #bbf7d0;display:flex;align-items:center;justify-content:center"><span style="width:14px;height:14px;border-radius:50%;background:linear-gradient(90deg,#052e16 50%,transparent 50%);border:1.6px solid #052e16;display:block"></span></span>
+</div>
+
+<div style="padding:0 20px 12px;display:flex;gap:8px;flex:none">
+<div style="flex:1;background:#fff;border:1px solid #bbf7d0;border-radius:14px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="width:20px;height:20px;border-radius:6px;background:#dcfce7;display:block"></span><span style="font:700 15px/1 Inter,sans-serif;color:#052e16">5</span><span style="font:500 9px/1 Inter,sans-serif;letter-spacing:.06em;color:rgba(5,46,22,.5);text-transform:uppercase">Racha</span></div>
+<div style="flex:1;background:#fff;border:1px solid #bbf7d0;border-radius:14px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="width:20px;height:20px;border-radius:50%;background:#dcfce7;display:block"></span><span style="font:700 15px/1 Inter,sans-serif;color:#052e16">160</span><span style="font:500 9px/1 Inter,sans-serif;letter-spacing:.06em;color:rgba(5,46,22,.5);text-transform:uppercase">Puntos</span></div>
+<div style="flex:1;background:#fff;border:1px solid #bbf7d0;border-radius:14px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="width:20px;height:20px;border-radius:4px;background:#dcfce7;transform:rotate(45deg);display:block"></span><span style="font:700 15px/1 Inter,sans-serif;color:#052e16">3</span><span style="font:500 9px/1 Inter,sans-serif;letter-spacing:.06em;color:rgba(5,46,22,.5);text-transform:uppercase">Insignias</span></div>
+<div style="flex:1;background:#fff;border:1px solid #bbf7d0;border-radius:14px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="width:20px;height:20px;border-radius:6px;background:#dcfce7;display:block"></span><span style="font:700 15px/1 Inter,sans-serif;color:#052e16">60%</span><span style="font:500 9px/1 Inter,sans-serif;letter-spacing:.06em;color:rgba(5,46,22,.5);text-transform:uppercase">Test</span></div>
+</div>
+
+<div style="flex:1;overflow:hidden;padding:0 20px;display:grid;grid-auto-rows:min-content;gap:14px">
+<div style="border-radius:22px;background:linear-gradient(135deg,#16a34a,#15803d);padding:20px;display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden">
+<span style="position:absolute;right:-24px;top:-24px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.09)"></span>
+<div style="display:flex;gap:14px;align-items:flex-start">
+<div style="flex:1;display:flex;flex-direction:column;gap:7px"><span style="font:600 10px/1 Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.7)">Tu test vocacional</span><span style="font:700 21px/1.2 Inter,sans-serif;color:#fff;letter-spacing:-.01em">Te faltan 12 preguntas</span></div>
+<span style="width:56px;height:56px;border-radius:16px;background:repeating-linear-gradient(135deg,rgba(255,255,255,.28) 0 6px,rgba(255,255,255,.14) 6px 12px);flex:none;display:flex;align-items:center;justify-content:center;font:500 7px/1.3 ui-monospace,monospace;color:rgba(255,255,255,.85);text-align:center">ilustr.</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:7px"><span style="display:block;height:8px;border-radius:4px;background:rgba(255,255,255,.25);overflow:hidden"><span style="display:block;width:60%;height:100%;border-radius:4px;background:#fff"></span></span><span style="font:500 11px/1 Inter,sans-serif;color:rgba(255,255,255,.8)">60% · unos 6 minutos</span></div>
+<div style="height:46px;border-radius:13px;background:#fff;display:flex;align-items:center;justify-content:center;font:600 15px/1 Inter,sans-serif;color:#15803d">Continuar test</div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<div style="background:#fff;border:1px solid #bbf7d0;border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:96px"><span style="width:34px;height:34px;border-radius:11px;background:#dcfce7;display:flex;align-items:center;justify-content:center"><span style="width:14px;height:14px;border:2px solid #16a34a;border-radius:50%;display:block"></span></span><span style="font:600 14px/1.25 Inter,sans-serif;color:#052e16">Explorar carreras</span><span style="font:400 11px/1 Inter,sans-serif;color:rgba(5,46,22,.5);margin-top:-4px">240 programas</span></div>
+<div style="background:#fff;border:1px solid #bbf7d0;border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:96px"><span style="width:34px;height:34px;border-radius:11px;background:#dcfce7;display:flex;align-items:center;justify-content:center"><span style="width:14px;height:12px;border:2px solid #16a34a;border-radius:2px;display:block"></span></span><span style="font:600 14px/1.25 Inter,sans-serif;color:#052e16">Recursos</span><span style="font:400 11px/1 Inter,sans-serif;color:rgba(5,46,22,.5);margin-top:-4px">Guías y becas</span></div>
+<div style="background:#fff;border:1px solid #bbf7d0;border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:96px"><span style="width:34px;height:34px;border-radius:11px;background:#dcfce7;display:flex;align-items:center;justify-content:center"><span style="width:15px;height:15px;border:2px solid #16a34a;border-radius:4px;display:block"></span></span><span style="font:600 14px/1.25 Inter,sans-serif;color:#052e16">Comunidad</span><span style="font:400 11px/1 Inter,sans-serif;color:rgba(5,46,22,.5);margin-top:-4px">3 respuestas nuevas</span></div>
+<div style="background:#fff;border:1px solid #bbf7d0;border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:96px"><span style="width:34px;height:34px;border-radius:11px;background:#dcfce7;display:flex;align-items:center;justify-content:center"><span style="width:14px;height:14px;border:2px solid #16a34a;border-radius:4px;transform:rotate(45deg);display:block"></span></span><span style="font:600 14px/1.25 Inter,sans-serif;color:#052e16">Mis resultados</span><span style="font:400 11px/1 Inter,sans-serif;color:rgba(5,46,22,.5);margin-top:-4px">Perfil parcial</span></div>
+</div>
+
+<div style="background:#fff;border:1px solid #bbf7d0;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:center;justify-content:space-between"><span style="font:700 15px/1 Inter,sans-serif;color:#052e16">¡5 días seguidos!</span><span style="font:500 11px/1 Inter,sans-serif;color:#15803d;background:#dcfce7;padding:5px 9px;border-radius:20px">+10 pts hoy</span></div>
+<div style="display:flex;justify-content:space-between">
+<span style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="width:30px;height:30px;border-radius:50%;background:#16a34a;display:flex;align-items:center;justify-content:center;font:700 12px/1 Inter,sans-serif;color:#fff">✓</span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(5,46,22,.5)">L</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="width:30px;height:30px;border-radius:50%;background:#16a34a;display:flex;align-items:center;justify-content:center;font:700 12px/1 Inter,sans-serif;color:#fff">✓</span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(5,46,22,.5)">M</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="width:30px;height:30px;border-radius:50%;background:#16a34a;display:flex;align-items:center;justify-content:center;font:700 12px/1 Inter,sans-serif;color:#fff">✓</span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(5,46,22,.5)">M</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="width:30px;height:30px;border-radius:50%;background:#16a34a;display:flex;align-items:center;justify-content:center;font:700 12px/1 Inter,sans-serif;color:#fff">✓</span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(5,46,22,.5)">J</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="width:30px;height:30px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.2);display:flex;align-items:center;justify-content:center;font:700 12px/1 Inter,sans-serif;color:#fff">✓</span><span style="font:600 10px/1 Inter,sans-serif;color:#15803d">V</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="width:30px;height:30px;border-radius:50%;border:1.5px dashed #bbf7d0;display:block"></span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(5,46,22,.35)">S</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="width:30px;height:30px;border-radius:50%;border:1.5px dashed #bbf7d0;display:block"></span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(5,46,22,.35)">D</span></span>
+</div>
+</div>
+
+<div style="background:#fff;border:1px solid #bbf7d0;border-radius:18px;padding:16px;display:flex;align-items:center;gap:13px">
+<span style="width:42px;height:42px;border-radius:13px;background:#dcfce7;flex:none;display:flex;align-items:center;justify-content:center"><span style="width:16px;height:16px;border:2px solid #16a34a;border-radius:4px;display:block"></span></span>
+<span style="flex:1;display:flex;flex-direction:column;gap:3px"><span style="font:600 14px/1.2 Inter,sans-serif;color:#052e16">Mini reto de hoy</span><span style="font:400 12px/1.3 Inter,sans-serif;color:rgba(5,46,22,.55)">Lee una historia de la comunidad</span></span>
+<span style="font:600 12px/1 Inter,sans-serif;color:#15803d">+20</span>
+</div>
+</div>
+
+<div style="flex:none;background:#fff;border-top:1px solid #bbf7d0;padding:9px 8px 24px;display:flex;justify-content:space-around;align-items:flex-start">
+<span style="display:flex;flex-direction:column;align-items:center;gap:5px;width:64px"><span style="width:24px;height:24px;border-radius:7px;background:#16a34a;display:block"></span><span style="font:600 10px/1 Inter,sans-serif;color:#16a34a">Inicio</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:5px;width:64px"><span style="width:24px;height:24px;border-radius:50%;border:2px solid rgba(5,46,22,.35);display:block"></span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(5,46,22,.5)">Explorar</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:5px;width:64px"><span style="width:24px;height:24px;border-radius:7px;border:2px solid rgba(5,46,22,.35);display:block"></span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(5,46,22,.5)">Test</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:5px;width:64px"><span style="width:24px;height:20px;border-radius:4px;border:2px solid rgba(5,46,22,.35);display:block"></span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(5,46,22,.5)">Recursos</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:5px;width:64px"><span style="width:22px;height:22px;border-radius:6px;border:2px solid rgba(5,46,22,.35);transform:rotate(45deg);display:block"></span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(5,46,22,.5)">Comunidad</span></span>
+</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px">
+<span style="font:500 11px/1 ui-monospace,Menlo,monospace;color:rgba(5,46,22,.5)">11b · HOME — MODO OSCURO</span>
+<div style="width:390px;height:844px;border-radius:44px;background:linear-gradient(#0a1a0a,#060d07);box-shadow:0 0 0 10px #1a1d24,0 22px 48px rgba(5,46,22,.22);overflow:hidden;display:flex;flex-direction:column">
+<div style="height:54px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 30px 8px;flex:none"><span style="font:600 14px/1 Inter,sans-serif;color:#f0fdf4">9:41</span><span style="display:flex;gap:5px;align-items:center"><span style="width:16px;height:10px;border-radius:2px;background:#f0fdf4;opacity:.8"></span><span style="width:22px;height:11px;border-radius:3px;border:1.5px solid rgba(240,253,244,.55)"></span></span></div>
+
+<div style="padding:6px 20px 10px;display:flex;align-items:center;gap:12px;flex:none">
+<span style="width:40px;height:40px;border-radius:50%;background:repeating-linear-gradient(135deg,#16281a 0 5px,#0f1a11 5px 10px);border:1px solid #1f3a24;flex:none"></span>
+<span style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font:400 12px/1 Inter,sans-serif;color:rgba(240,253,244,.5)">Buenas noches,</span><span style="font:700 16px/1 Inter,sans-serif;color:#f0fdf4">Sofía</span></span>
+<span style="width:38px;height:38px;border-radius:12px;background:#1a1d24;border:1px solid #2c3140;display:flex;align-items:center;justify-content:center;position:relative"><span style="width:14px;height:14px;border:1.6px solid #f0fdf4;border-radius:5px 5px 3px 3px;display:block"></span><span style="position:absolute;top:9px;right:10px;width:7px;height:7px;border-radius:50%;background:#4ade80;border:1.5px solid #1a1d24"></span></span>
+<span style="width:38px;height:38px;border-radius:12px;background:#1a1d24;border:1px solid #2c3140;display:flex;align-items:center;justify-content:center"><span style="width:14px;height:14px;border-radius:50%;background:#4ade80;display:block"></span></span>
+</div>
+
+<div style="padding:0 20px 12px;display:flex;gap:8px;flex:none">
+<div style="flex:1;background:#1a1d24;border:1px solid #2c3140;border-radius:14px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="width:20px;height:20px;border-radius:6px;background:rgba(74,222,128,.18);display:block"></span><span style="font:700 15px/1 Inter,sans-serif;color:#f0fdf4">5</span><span style="font:500 9px/1 Inter,sans-serif;letter-spacing:.06em;color:rgba(240,253,244,.45);text-transform:uppercase">Racha</span></div>
+<div style="flex:1;background:#1a1d24;border:1px solid #2c3140;border-radius:14px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="width:20px;height:20px;border-radius:50%;background:rgba(74,222,128,.18);display:block"></span><span style="font:700 15px/1 Inter,sans-serif;color:#f0fdf4">160</span><span style="font:500 9px/1 Inter,sans-serif;letter-spacing:.06em;color:rgba(240,253,244,.45);text-transform:uppercase">Puntos</span></div>
+<div style="flex:1;background:#1a1d24;border:1px solid #2c3140;border-radius:14px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="width:20px;height:20px;border-radius:4px;background:rgba(74,222,128,.18);transform:rotate(45deg);display:block"></span><span style="font:700 15px/1 Inter,sans-serif;color:#f0fdf4">3</span><span style="font:500 9px/1 Inter,sans-serif;letter-spacing:.06em;color:rgba(240,253,244,.45);text-transform:uppercase">Insignias</span></div>
+<div style="flex:1;background:#1a1d24;border:1px solid #2c3140;border-radius:14px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:4px"><span style="width:20px;height:20px;border-radius:6px;background:rgba(74,222,128,.18);display:block"></span><span style="font:700 15px/1 Inter,sans-serif;color:#f0fdf4">60%</span><span style="font:500 9px/1 Inter,sans-serif;letter-spacing:.06em;color:rgba(240,253,244,.45);text-transform:uppercase">Test</span></div>
+</div>
+
+<div style="flex:1;overflow:hidden;padding:0 20px;display:grid;grid-auto-rows:min-content;gap:14px">
+<div style="border-radius:22px;background:linear-gradient(135deg,#15803d,#14532d);padding:20px;display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden">
+<span style="position:absolute;right:-24px;top:-24px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.07)"></span>
+<div style="display:flex;gap:14px;align-items:flex-start">
+<div style="flex:1;display:flex;flex-direction:column;gap:7px"><span style="font:600 10px/1 Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65)">Tu test vocacional</span><span style="font:700 21px/1.2 Inter,sans-serif;color:#fff;letter-spacing:-.01em">Te faltan 12 preguntas</span></div>
+<span style="width:56px;height:56px;border-radius:16px;background:repeating-linear-gradient(135deg,rgba(255,255,255,.22) 0 6px,rgba(255,255,255,.1) 6px 12px);flex:none;display:flex;align-items:center;justify-content:center;font:500 7px/1.3 ui-monospace,monospace;color:rgba(255,255,255,.8);text-align:center">ilustr.</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:7px"><span style="display:block;height:8px;border-radius:4px;background:rgba(255,255,255,.2);overflow:hidden"><span style="display:block;width:60%;height:100%;border-radius:4px;background:#4ade80"></span></span><span style="font:500 11px/1 Inter,sans-serif;color:rgba(255,255,255,.75)">60% · unos 6 minutos</span></div>
+<div style="height:46px;border-radius:13px;background:#4ade80;display:flex;align-items:center;justify-content:center;font:600 15px/1 Inter,sans-serif;color:#052e16">Continuar test</div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<div style="background:#1a1d24;border:1px solid #2c3140;border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:96px"><span style="width:34px;height:34px;border-radius:11px;background:rgba(74,222,128,.14);display:flex;align-items:center;justify-content:center"><span style="width:14px;height:14px;border:2px solid #4ade80;border-radius:50%;display:block"></span></span><span style="font:600 14px/1.25 Inter,sans-serif;color:#f0fdf4">Explorar carreras</span><span style="font:400 11px/1 Inter,sans-serif;color:rgba(240,253,244,.45);margin-top:-4px">240 programas</span></div>
+<div style="background:#1a1d24;border:1px solid #2c3140;border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:96px"><span style="width:34px;height:34px;border-radius:11px;background:rgba(74,222,128,.14);display:flex;align-items:center;justify-content:center"><span style="width:14px;height:12px;border:2px solid #4ade80;border-radius:2px;display:block"></span></span><span style="font:600 14px/1.25 Inter,sans-serif;color:#f0fdf4">Recursos</span><span style="font:400 11px/1 Inter,sans-serif;color:rgba(240,253,244,.45);margin-top:-4px">Guías y becas</span></div>
+<div style="background:#1a1d24;border:1px solid #2c3140;border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:96px"><span style="width:34px;height:34px;border-radius:11px;background:rgba(74,222,128,.14);display:flex;align-items:center;justify-content:center"><span style="width:15px;height:15px;border:2px solid #4ade80;border-radius:4px;display:block"></span></span><span style="font:600 14px/1.25 Inter,sans-serif;color:#f0fdf4">Comunidad</span><span style="font:400 11px/1 Inter,sans-serif;color:rgba(240,253,244,.45);margin-top:-4px">3 respuestas nuevas</span></div>
+<div style="background:#1a1d24;border:1px solid #2c3140;border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:10px;min-height:96px"><span style="width:34px;height:34px;border-radius:11px;background:rgba(74,222,128,.14);display:flex;align-items:center;justify-content:center"><span style="width:14px;height:14px;border:2px solid #4ade80;border-radius:4px;transform:rotate(45deg);display:block"></span></span><span style="font:600 14px/1.25 Inter,sans-serif;color:#f0fdf4">Mis resultados</span><span style="font:400 11px/1 Inter,sans-serif;color:rgba(240,253,244,.45);margin-top:-4px">Perfil parcial</span></div>
+</div>
+
+<div style="background:#1a1d24;border:1px solid #2c3140;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:center;justify-content:space-between"><span style="font:700 15px/1 Inter,sans-serif;color:#f0fdf4">¡5 días seguidos!</span><span style="font:500 11px/1 Inter,sans-serif;color:#4ade80;background:rgba(74,222,128,.14);padding:5px 9px;border-radius:20px">+10 pts hoy</span></div>
+<div style="display:flex;justify-content:space-between">
+<span style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="width:30px;height:30px;border-radius:50%;background:#4ade80;display:flex;align-items:center;justify-content:center;font:700 12px/1 Inter,sans-serif;color:#052e16">✓</span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(240,253,244,.45)">L</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="width:30px;height:30px;border-radius:50%;background:#4ade80;display:flex;align-items:center;justify-content:center;font:700 12px/1 Inter,sans-serif;color:#052e16">✓</span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(240,253,244,.45)">M</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="width:30px;height:30px;border-radius:50%;background:#4ade80;display:flex;align-items:center;justify-content:center;font:700 12px/1 Inter,sans-serif;color:#052e16">✓</span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(240,253,244,.45)">M</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="width:30px;height:30px;border-radius:50%;background:#4ade80;display:flex;align-items:center;justify-content:center;font:700 12px/1 Inter,sans-serif;color:#052e16">✓</span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(240,253,244,.45)">J</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="width:30px;height:30px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.18);display:flex;align-items:center;justify-content:center;font:700 12px/1 Inter,sans-serif;color:#052e16">✓</span><span style="font:600 10px/1 Inter,sans-serif;color:#4ade80">V</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="width:30px;height:30px;border-radius:50%;border:1.5px dashed #2c3140;display:block"></span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(240,253,244,.3)">S</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="width:30px;height:30px;border-radius:50%;border:1.5px dashed #2c3140;display:block"></span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(240,253,244,.3)">D</span></span>
+</div>
+</div>
+
+<div style="background:#1a1d24;border:1px solid #2c3140;border-radius:18px;padding:16px;display:flex;align-items:center;gap:13px">
+<span style="width:42px;height:42px;border-radius:13px;background:rgba(74,222,128,.14);flex:none;display:flex;align-items:center;justify-content:center"><span style="width:16px;height:16px;border:2px solid #4ade80;border-radius:4px;display:block"></span></span>
+<span style="flex:1;display:flex;flex-direction:column;gap:3px"><span style="font:600 14px/1.2 Inter,sans-serif;color:#f0fdf4">Mini reto de hoy</span><span style="font:400 12px/1.3 Inter,sans-serif;color:rgba(240,253,244,.5)">Lee una historia de la comunidad</span></span>
+<span style="font:600 12px/1 Inter,sans-serif;color:#4ade80">+20</span>
+</div>
+</div>
+
+<div style="flex:none;background:#0d110e;border-top:1px solid #1f2a22;padding:9px 8px 24px;display:flex;justify-content:space-around;align-items:flex-start">
+<span style="display:flex;flex-direction:column;align-items:center;gap:5px;width:64px"><span style="width:24px;height:24px;border-radius:7px;background:#4ade80;display:block"></span><span style="font:600 10px/1 Inter,sans-serif;color:#4ade80">Inicio</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:5px;width:64px"><span style="width:24px;height:24px;border-radius:50%;border:2px solid rgba(240,253,244,.35);display:block"></span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(240,253,244,.45)">Explorar</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:5px;width:64px"><span style="width:24px;height:24px;border-radius:7px;border:2px solid rgba(240,253,244,.35);display:block"></span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(240,253,244,.45)">Test</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:5px;width:64px"><span style="width:24px;height:20px;border-radius:4px;border:2px solid rgba(240,253,244,.35);display:block"></span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(240,253,244,.45)">Recursos</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:5px;width:64px"><span style="width:22px;height:22px;border-radius:6px;border:2px solid rgba(240,253,244,.35);transform:rotate(45deg);display:block"></span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(240,253,244,.45)">Comunidad</span></span>
+</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px">
+<span style="font:500 11px/1 ui-monospace,Menlo,monospace;color:rgba(5,46,22,.5)">12 · PERFIL / COMPLETAR PERFIL</span>
+<div style="width:390px;height:844px;border-radius:44px;background:#fff;box-shadow:0 0 0 10px #1a1d24,0 22px 48px rgba(5,46,22,.22);overflow:hidden;display:flex;flex-direction:column">
+<div style="background:linear-gradient(135deg,#16a34a,#15803d);padding:0 20px 20px;flex:none;position:relative;overflow:hidden">
+<span style="position:absolute;right:-30px;top:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.08)"></span>
+<div style="height:54px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 10px 8px"><span style="font:600 14px/1 Inter,sans-serif;color:#fff">9:41</span><span style="display:flex;gap:5px;align-items:center"><span style="width:16px;height:10px;border-radius:2px;background:#fff;opacity:.85"></span><span style="width:22px;height:11px;border-radius:3px;border:1.5px solid rgba(255,255,255,.7)"></span></span></div>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0 18px"><span style="font:700 17px/1 Inter,sans-serif;color:#fff">Tu perfil</span><span style="width:36px;height:36px;border-radius:11px;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center"><span style="width:15px;height:15px;border:2px solid #fff;border-radius:50%;display:block"></span></span></div>
+<div style="display:flex;align-items:center;gap:14px">
+<span style="width:66px;height:66px;border-radius:50%;background:repeating-linear-gradient(135deg,rgba(255,255,255,.3) 0 6px,rgba(255,255,255,.15) 6px 12px);border:2px solid rgba(255,255,255,.5);flex:none;display:flex;align-items:center;justify-content:center;font:500 7px/1 ui-monospace,monospace;color:#fff">foto</span>
+<span style="flex:1;display:flex;flex-direction:column;gap:5px">
+<span style="font:700 20px/1.1 Inter,sans-serif;color:#fff;letter-spacing:-.01em">Sofía Restrepo</span>
+<span style="font:400 12px/1 Inter,sans-serif;color:rgba(255,255,255,.75)">Grado 11 · Medellín</span>
+</span>
+</div>
+</div>
+
+<div style="flex:1;overflow:hidden;padding:16px 20px;display:grid;grid-auto-rows:min-content;gap:14px;background:linear-gradient(#f0fdf4,#ffffff)">
+<div style="background:#fff;border:1px solid #bbf7d0;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:center;justify-content:space-between"><span style="font:700 15px/1 Inter,sans-serif;color:#052e16">Completa tu perfil</span><span style="font:700 14px/1 Inter,sans-serif;color:#16a34a">40%</span></div>
+<span style="display:block;height:8px;border-radius:4px;background:#dcfce7;overflow:hidden"><span style="display:block;width:40%;height:100%;border-radius:4px;background:#16a34a"></span></span>
+<div style="display:flex;flex-direction:column;gap:11px">
+<div style="display:flex;align-items:center;gap:11px"><span style="width:22px;height:22px;border-radius:50%;background:#16a34a;flex:none;display:flex;align-items:center;justify-content:center;font:700 11px/1 Inter,sans-serif;color:#fff">✓</span><span style="flex:1;font:400 13px/1 Inter,sans-serif;color:rgba(5,46,22,.45);text-decoration:line-through">Confirma tu correo</span><span style="font:600 11px/1 Inter,sans-serif;color:rgba(5,46,22,.35)">+10</span></div>
+<div style="display:flex;align-items:center;gap:11px"><span style="width:22px;height:22px;border-radius:50%;border:1.5px solid #bbf7d0;flex:none"></span><span style="flex:1;font:500 13px/1 Inter,sans-serif;color:#052e16">Sube una foto</span><span style="font:600 11px/1 Inter,sans-serif;color:#15803d">+15</span></div>
+<div style="display:flex;align-items:center;gap:11px"><span style="width:22px;height:22px;border-radius:50%;border:1.5px solid #bbf7d0;flex:none"></span><span style="flex:1;font:500 13px/1 Inter,sans-serif;color:#052e16">Cuéntanos tus intereses</span><span style="font:600 11px/1 Inter,sans-serif;color:#15803d">+25</span></div>
+<div style="display:flex;align-items:center;gap:11px"><span style="width:22px;height:22px;border-radius:50%;border:1.5px solid #bbf7d0;flex:none"></span><span style="flex:1;font:500 13px/1 Inter,sans-serif;color:#052e16">Termina el test vocacional</span><span style="font:600 11px/1 Inter,sans-serif;color:#15803d">+50</span></div>
+</div>
+<div style="height:46px;border-radius:13px;background:#16a34a;display:flex;align-items:center;justify-content:center;font:600 15px/1 Inter,sans-serif;color:#fff">Completar ahora</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;justify-content:space-between"><span style="font:700 13px/1 Inter,sans-serif;color:#052e16">Tus insignias</span><span style="font:500 12px/1 Inter,sans-serif;color:#16a34a">Ver todas</span></div>
+<div style="display:flex;gap:10px">
+<span style="flex:1;aspect-ratio:1;border-radius:16px;background:#dcfce7;border:1px solid #bbf7d0;display:flex;align-items:center;justify-content:center"><span style="width:22px;height:22px;border-radius:7px;background:#16a34a;display:block"></span></span>
+<span style="flex:1;aspect-ratio:1;border-radius:16px;background:#dcfce7;border:1px solid #bbf7d0;display:flex;align-items:center;justify-content:center"><span style="width:22px;height:22px;border-radius:50%;background:#16a34a;display:block"></span></span>
+<span style="flex:1;aspect-ratio:1;border-radius:16px;background:#dcfce7;border:1px solid #bbf7d0;display:flex;align-items:center;justify-content:center"><span style="width:20px;height:20px;border-radius:5px;background:#16a34a;transform:rotate(45deg);display:block"></span></span>
+<span style="flex:1;aspect-ratio:1;border-radius:16px;background:#f7f7f5;border:1.5px dashed #e2e8e3;display:flex;align-items:center;justify-content:center;font:500 9px/1 ui-monospace,monospace;color:rgba(5,46,22,.35)">?</span>
+</div>
+</div>
+
+<div style="background:#fff;border:1px solid #bbf7d0;border-radius:18px;overflow:hidden;display:flex;flex-direction:column">
+<div style="padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #ecf7ef"><span style="width:30px;height:30px;border-radius:9px;background:#dcfce7;flex:none"></span><span style="flex:1;font:500 14px/1 Inter,sans-serif;color:#052e16">Rutas formativas</span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(5,46,22,.4);background:#f4f6f4;padding:4px 7px;border-radius:20px">Pronto</span></div>
+<div style="padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #ecf7ef"><span style="width:30px;height:30px;border-radius:9px;background:#dcfce7;flex:none"></span><span style="flex:1;font:500 14px/1 Inter,sans-serif;color:#052e16">Favoritos</span><span style="font:600 14px/1 Inter,sans-serif;color:rgba(5,46,22,.3)">›</span></div>
+<div style="padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #ecf7ef"><span style="width:30px;height:30px;border-radius:9px;background:#dcfce7;flex:none"></span><span style="flex:1;font:500 14px/1 Inter,sans-serif;color:#052e16">Mensajes</span><span style="font:600 14px/1 Inter,sans-serif;color:rgba(5,46,22,.3)">›</span></div>
+<div style="padding:14px 16px;display:flex;align-items:center;gap:12px"><span style="width:30px;height:30px;border-radius:9px;background:#dcfce7;flex:none"></span><span style="flex:1;font:500 14px/1 Inter,sans-serif;color:#052e16">Modo oscuro</span><span style="width:44px;height:26px;border-radius:14px;background:#dcfce7;border:1px solid #bbf7d0;display:flex;align-items:center;padding:2px"><span style="width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(5,46,22,.2);display:block"></span></span></div>
+</div>
+</div>
+
+<div style="flex:none;background:#fff;border-top:1px solid #bbf7d0;padding:9px 8px 24px;display:flex;justify-content:space-around;align-items:flex-start">
+<span style="display:flex;flex-direction:column;align-items:center;gap:5px;width:64px"><span style="width:24px;height:24px;border-radius:7px;border:2px solid rgba(5,46,22,.35);display:block"></span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(5,46,22,.5)">Inicio</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:5px;width:64px"><span style="width:24px;height:24px;border-radius:50%;border:2px solid rgba(5,46,22,.35);display:block"></span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(5,46,22,.5)">Explorar</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:5px;width:64px"><span style="width:24px;height:24px;border-radius:7px;border:2px solid rgba(5,46,22,.35);display:block"></span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(5,46,22,.5)">Test</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:5px;width:64px"><span style="width:24px;height:20px;border-radius:4px;border:2px solid rgba(5,46,22,.35);display:block"></span><span style="font:500 10px/1 Inter,sans-serif;color:rgba(5,46,22,.5)">Recursos</span></span>
+<span style="display:flex;flex-direction:column;align-items:center;gap:5px;width:64px"><span style="width:22px;height:22px;border-radius:6px;background:#16a34a;transform:rotate(45deg);display:block"></span><span style="font:600 10px/1 Inter,sans-serif;color:#16a34a">Comunidad</span></span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div style="max-width:760px;display:flex;flex-direction:column;gap:10px;padding-top:8px;border-top:1px solid rgba(5,46,22,.1)">
+<span style="font:700 12px/1 Inter,sans-serif;color:#052e16">Notas para la siguiente tanda</span>
+<p style="margin:0;font:400 13px/1.6 Inter,sans-serif;color:rgba(5,46,22,.6);text-wrap:pretty">El perfil usa el header verde como el hero del home, así la jerarquía se repite. La tab bar activa "Comunidad" en perfil porque el perfil vive detrás del menú de usuario, no en la barra — dime si prefieres perfil como quinta pestaña. Sigue pendiente: test vocacional (intro, pregunta, Likert, progreso, resultado), programas, recursos, comunidad y marketing.</p>
+</div>
+
+</div>
+</x-dc>
+</body>
+</html>

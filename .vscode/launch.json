@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "brota (Opera GX - Web)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "chrome",
+      "env": {
+        "CHROME_EXECUTABLE": "/usr/bin/opera-gx"
+      }
+    },
+    {
+      "name": "brota (Linux desktop)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "linux"
+    }
+  ]
+}

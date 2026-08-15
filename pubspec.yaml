@@ -1,0 +1,46 @@
+name: brota_flutter_app
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  dio: ^5.11.0
+  equatable: ^2.1.0
+  flutter:
+    sdk: flutter
+  flutter_dotenv: ^6.0.1
+  flutter_riverpod: ^2.6.1
+  flutter_svg: ^2.2.1
+  freezed_annotation: ^3.1.0
+  go_router: ^17.3.0
+  google_fonts: ^8.2.1
+  json_annotation: ^4.12.0
+  supabase_flutter: ^2.16.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  build_runner: ^2.15.1
+  json_serializable: ^6.14.1
+  mocktail: ^1.0.5
+  freezed: ^3.2.5
+
+flutter:
+  uses-material-design: true
+  assets:
+    - .env
+    - assets/icons/logo-base-limpio.svg
+    - assets/icons/logo-guino.svg
+    - assets/icons/logo-triste.svg
+    - assets/icons/logo-feliz.svg
+    - assets/icons/icon-profesiones.svg
+    - assets/icons/icon-confirmar.svg
+    - assets/icons/icon-ruta.svg
+    - assets/icons/icon-recursos.svg
+    - assets/icons/icon-buscar.svg
+    - assets/icons/icon-comunidad.svg
+    - assets/icons/icon-inicio.svg
