@@ -161,25 +161,50 @@ No hay token web para `error`/`danger` (el `Button.jsx` del web cae a un
 rojo Tailwind genérico) — `AppColors` usa rojo estándar (`#EF4444` claro /
 `#F87171` oscuro) por convención, no por un valor de marca real.
 
-**Mascota (activo nuevo, exclusivo del móvil, sin equivalente en el web):**
-`assets/icons/*.svg` — perezoso con lentes y una hojita, 4 variantes de
-expresión (`logo-base-limpio`/`logo-guino`/`logo-triste`/`logo-feliz`),
-verde del marco/hoja alineado al `#21BD68` de arriba. Requiere `flutter_svg`
-(agregado a `pubspec.yaml`) porque Flutter no renderiza SVG nativo. Mapeo
-completo de qué variante usa cada pantalla, historial de generación y
-geometría de cada pieza: `MOBILE_DESIGN_BRIEF.md` §1.2.1 y
-`assets/icons/README.md`.
+**Mascota — se llama "Broti" (corregido 2026-08-23, NO es exclusiva del
+móvil):** `assets/icons/*.svg` — perezoso con lentes y una hojita, 4
+variantes de expresión (`logo-base-limpio`/`logo-guino`/`logo-triste`/
+`logo-feliz`), verde del marco/hoja alineado al `#21BD68` de arriba.
+Requiere `flutter_svg` (agregado a `pubspec.yaml`) porque Flutter no
+renderiza SVG nativo. **Es la misma mascota que el web ya tiene con
+nombre propio y sistema de personalización** (`perfiles_usuario.
+broti_config`, catálogo de variantes/fondos) — el móvil todavía no lo
+replica. Detalle completo: `MOBILE_DESIGN_BRIEF.md` §1.2.1,
+`FUNCTIONAL_CONTENT_BRIEF.md` §8, `assets/icons/README.md` y
+`WEB_PARITY_ROADMAP.md` §1.3.
 
 ## Estado de la implementación
 
-Solo el feature `auth` está completo (login, registro, forgot-password,
-`AuthRepositoryImpl` sobre Supabase). Todo lo demás del mapa de pantallas
-en `MOBILE_DESIGN_BRIEF.md` sección 2 (Landing pública, Test vocacional,
-Explorar profesiones, Recursos, Comunidad, Admin) **no existe todavía** —
-`lib/features/dashboard/` es un placeholder de una sola pantalla. Antes de
+`auth` y `profesiones` están completos (`AuthRepositoryImpl` sobre
+Supabase; `ProgramasRepositoryImpl` sobre Dio/backend Express, con
+búsqueda debounced, paginación "cargar más" y filtro de área
+server-side + modalidad client-side — ver `FUNCTIONAL_CONTENT_BRIEF.md`
+sección 2 y `WEB_PARITY_ROADMAP.md` §4 Fase A). Todo lo demás del mapa
+de pantallas en `MOBILE_DESIGN_BRIEF.md` sección 2 (Landing pública,
+Test vocacional, Recursos, Comunidad, Admin) **no existe todavía** —
+`lib/features/dashboard/` es un placeholder de una sola pantalla (con los
+íconos/mascota de marca ya integrados, ver commits recientes). Antes de
 construir una feature nueva, revisa la sección 2-3 del brief para el mapa
 de pantallas y endpoints, y el grafo (`graphify query`) para ver qué ya
 existe en `lib/` que se pueda reutilizar.
+
+⚠️ **`MOBILE_DESIGN_BRIEF.md` y `FUNCTIONAL_CONTENT_BRIEF.md` son del
+2026-08-05** y el web hermano avanzó bastante desde entonces (rediseño de
+dashboard, Rutas ya real, pantallas nuevas: Perfil/Racha/Broti/
+Notificaciones). Ambos briefs ya se corrigieron en los puntos que
+cambiaron — pero antes de construir cualquier feature nueva, lee primero
+`WEB_PARITY_ROADMAP.md`: tiene el inventario de endpoints fresco y las
+fases sugeridas, y prevalece sobre los briefs viejos donde haya
+conflicto.
+
+**Antes de empezar cualquier fase de `WEB_PARITY_ROADMAP.md`, lee
+`~/Proyectos/Documentacion_Brota/CHANGELOG_PARA_MOVIL.md`** (repo
+hermano) — desde el 2026-08-23 el proyecto web deja ahí un registro
+incremental de cambios que afectan al móvil (endpoints, esquema,
+pantallas, marca). Si ese changelog tiene entradas más nuevas que la
+última fecha revisada acá, hay que incorporarlas antes de confiar en los
+tres documentos — es mucho más barato que repetir la auditoría manual
+completa que generó `WEB_PARITY_ROADMAP.md`.
 
 ## Entorno local
 

@@ -3,6 +3,15 @@
 > Este documento es un **dossier de información**, no un mockup. La arquitectura (rutas, componentes, backend) ya está resuelta — lo único que falta es el **diseño visual de la versión móvil**. Toda la información aquí fue extraída directamente del código fuente actual (no de documentación desactualizada) para que el diseño se apoye en la realidad del proyecto, no en supuestos.
 >
 > **Tu trabajo:** diseñar la experiencia móvil (layouts, navegación móvil, jerarquía visual, interacciones) para cada pantalla listada abajo, respetando el sistema de marca ya establecido. Las decisiones de diseño visual específicas (cómo se ve cada pantalla, qué patrón de navegación usar, cómo se reorganiza cada sección) son tuyas — este documento te da los hechos, no la solución.
+>
+> ⚠️ **Vigencia (2026-08-23):** este documento se escribió el 2026-08-05.
+> El repo web tuvo 48 commits desde esa fecha, algunos de los cuales
+> cambian secciones enteras de abajo (el dashboard se rediseñó por
+> completo, hay pantallas nuevas). Las secciones ya corregidas en esta
+> pasada lo dicen explícitamente; para el detalle de auditoría completo
+> y las fases propuestas para ponerse al día, ver `WEB_PARITY_ROADMAP.md`
+> en la raíz de este repo — es el documento que prevalece sobre este
+> brief donde haya conflicto.
 
 ---
 
@@ -41,9 +50,33 @@ Diseña como lo haría un diseñador de producto senior en un equipo de primer n
 - Siempre `width: auto` — nunca distorsionar proporciones
 - Hay también una imagen de fondo temática: `frontend/public/fondo-planta-crema.jpg` (usada en pantallas de auth)
 
-#### 1.2.1 Mascota (activo nuevo, exclusivo de la versión móvil)
+#### 1.2.1 Mascota — se llama "Broti" (confirmado 2026-08-23, ya existe en el web)
 
-- **Ubicación:** `assets/icons/*.svg` (repo Flutter, no existe equivalente en el web todavía). Perezoso/koala con lentes redondos y una hojita en la cabeza — la hoja conecta visualmente con el concepto "brotar" de la marca. Historial completo de la generación (Recraft AI), geometría exacta de cada pieza y lecciones de qué no repetir: `assets/icons/README.md`.
+⚠️ **Corrección importante:** esta sección decía "activo nuevo, exclusivo
+de la versión móvil" — **es incorrecto**. La mascota ya existe en el web
+con nombre propio, **Broti**, y un sistema de personalización completo
+que el móvil todavía no replica. Ver `WEB_PARITY_ROADMAP.md` §1.3 para
+el hallazgo completo. Resumen:
+
+- El archivo `logo-feliz.svg` que ya usa el móvil es literalmente
+  `MASCOTA_BASE` en `frontend/src/utils/brotiCatalog.js` — mismo asset,
+  mismo linaje Recraft. No son mascotas distintas.
+- El web permite personalizarla: `perfiles_usuario.broti_config` (JSONB
+  `{variante, fondo}`), catálogo estático en `brotiCatalog.js`
+  (`variante`: panda gratis / zorro de pago — reemplaza la imagen
+  completa, no son piezas sueltas; `fondo`: 6 fotos, 2 gratis / 4 de
+  pago, detrás de la mascota), persistido vía
+  `PATCH /api/perfil/:userId/broti`. Componente `BrotiAvatar` reemplazó
+  el círculo-con-inicial en navbar/perfil/comunidad.
+- El móvil **no tiene equivalente de `BrotiAvatar` ni del sistema de
+  personalización** — hoy solo usa las 4 expresiones fijas descritas
+  abajo. Portar el catálogo (es estático, fácil de mapear a Dart) y la
+  pantalla de personalización es la Fase C de `WEB_PARITY_ROADMAP.md`,
+  no implementado todavía.
+- Usa **"Broti"** (no solo "la mascota" o "perezoso") en código/copy
+  nuevo del móvil para que el nombre sea consistente entre plataformas.
+
+- **Ubicación:** `assets/icons/*.svg` en este repo Flutter (el web la tiene en `frontend/public/logos/`, mismos archivos). Perezoso/koala con lentes redondos y una hojita en la cabeza — la hoja conecta visualmente con el concepto "brotar" de la marca. Historial completo de la generación (Recraft AI), geometría exacta de cada pieza y lecciones de qué no repetir: `assets/icons/README.md`.
 - **Formato:** SVG, `viewBox="0 0 1024 1024"`, fondo transparente. Flutter no renderiza SVG nativo — requiere el paquete `flutter_svg` (agregado a `pubspec.yaml`).
 - **Color canónico:** `#21BD68` (el mismo `--primary` de modo claro de la sección 1.3) en el marco de las gafas y la hoja — es el único acento de color sobre un dibujo por lo demás en tonos café/crema neutros, así que ese verde es lo que ancla la mascota a la marca.
 - **Variantes y cuándo usar cada una:**
@@ -83,13 +116,13 @@ Diseña como lo haría un diseñador de producto senior en un equipo de primer n
   | `icon-recursos.svg` (libro) | "Explorar recursos" | ✅ integrado en `QuickActions` |
   | `icon-comunidad.svg` (burbujas) | tab/sección Comunidad | pendiente — ver nota bottom nav abajo |
   | `icon-favoritos.svg` (estrella) | favoritos | pendiente, sin pantalla propia todavía |
-  | `icon-racha.svg` (llama) | racha del perfil | pendiente — no hay feature `perfil`/backend, no se inventan datos (ver §1.7) |
+  | `icon-racha.svg` (llama) | racha del perfil | pendiente de **UI** solamente — el dato real ya existe (`GET /api/perfil/:userId` → `racha_dias`/`ultima_actividad`), corregido 2026-08-23 en `WEB_PARITY_ROADMAP.md` §1.2. Falta construir la feature `perfil` (domain/data), no esperar backend nuevo. |
   | `icon-ajustes.svg` (engranaje) | ajustes | pendiente, `/dashboard/ajustes` es placeholder |
   | `icon-mensajes.svg` (sobre) | mensajes | pendiente, `/dashboard/mensajes` es placeholder |
   | `icon-instituciones.svg` (edificio) | Admin → Instituciones | pendiente, panel admin no construido en móvil |
-  | `icon-negocios.svg` (maletín) | categoría Negocios/Emprendimiento | pendiente, requiere `data`/`domain` de profesiones/test |
-  | `icon-categoria-tecnologia/salud/ciencias/arte.svg` | categorías del test vocacional y profesiones (§1.6 de `FUNCTIONAL_CONTENT_BRIEF.md`) | pendiente, esas features siguen siendo placeholders sin `domain`/`data` |
-  | `icon-buscar.svg` (lupa+hoja) | búsqueda genérica | sin uso asignado todavía |
+  | `icon-negocios.svg` (maletín) | categoría Negocios/Emprendimiento | pendiente — no está entre las 4 con ícono propio integradas, sigue en emoji dentro de `ProfesionesScreen`; falta test vocacional |
+  | `icon-categoria-tecnologia/salud/ciencias/arte.svg` | categorías académicas (§2 de `FUNCTIONAL_CONTENT_BRIEF.md`) | ✅ integrados en `ProfesionesScreen` (chips de filtro de área) — faltan en test vocacional, que sigue placeholder |
+  | `icon-buscar.svg` (lupa+hoja) | búsqueda genérica | ✅ integrado en la bottom nav (tab "Explorar"). El campo de búsqueda de `ProfesionesScreen` usa `Icons.search` de Material (ícono de input estándar, no de marca) — decisión consistente, no un olvido. |
 
 - **Por qué la bottom nav (`dashboard_shell.dart`) no se tocó:** de sus 5
   tabs (Inicio/Explorar/Test/Recursos/Comunidad) solo 2 tienen icono
@@ -238,17 +271,29 @@ literal del HTML.
 
 ### 2.2 Dashboard (autenticado) — usa `TopNavbar` horizontal + `DashboardLayout`
 
-**Navegación actual (desktop):** `TopNavbar.jsx` es una barra horizontal sticky con: logo, 6 tabs de navegación (Inicio, Explorar, Test vocacional, Rutas, Recursos, Comunidad), y a la derecha: badge de Panel Admin (condicional), ícono de favoritos ⭐, ícono de mensajes 💬 (con punto de notificación), toggle de modo oscuro 🌙/☀️, y bloque de perfil (avatar + nombre + rol) que lleva a ajustes, más botón de logout. **Esto es lo primero que hay que rediseñar para móvil** — un patrón horizontal de 6 tabs + 5 acciones no cabe en una pantalla de teléfono; probablemente se traduce en tab bar inferior + menú/drawer para el resto, pero esa decisión es tuya.
+⚠️ **Toda esta sección se corrigió el 2026-08-23** — el commit `fbef308`
+("Rediseña el dashboard…") reemplazó `HeroBanner`/`QuickActions`/
+`ContinueSection` por completo (se borraron como código muerto) y se
+agregaron varias pantallas nuevas sin equivalente móvil. Detalle
+completo de la auditoría: `WEB_PARITY_ROADMAP.md`.
+
+**Navegación actual (desktop):** `TopNavbar.jsx` sigue siendo una barra horizontal sticky con 6 tabs (Inicio, Explorar, Test vocacional, Rutas, Recursos, Comunidad). A la derecha cambió: el bloque de perfil (avatar Broti + nombre) ya **no navega** — abre una card flotante con nombre/ciudad/edad/% de perfil completo y un botón "Editar perfil →" a `/dashboard/perfil`; el ícono de engranaje ahora navega directo a `/dashboard/ajustes` (antes ajustes y perfil eran una sola pantalla). El ícono de mensajes 💬 con punto de notificación ahora es de **notificaciones reales**, no un placeholder. **Sigue siendo lo primero a rediseñar para móvil** — 6 tabs + esas acciones no caben en una pantalla de teléfono; se tradujo en la tab bar inferior de 5 ítems que ya implementó el móvil (`dashboard_shell.dart`) + el resto accesible desde Inicio/perfil.
 
 | Ruta | Pantalla | Contenido / función |
 |---|---|---|
-| `/dashboard` | **Inicio** | `HeroBanner` (saludo + fecha + mini-card de progreso del test con CTA) → `QuickActions` (grid 2×2 de accesos: Explorar profesiones, Realizar test, Rutas formativas, Explorar recursos) → `ContinueSection` (contenido dinámico "continuar donde quedaste"). Columna derecha (rail fijo de 300px, **no existe en mobile por falta de espacio**): `ProfileSidebar` con card de perfil + barra de completitud, card de racha (🔥 N días, con 7 casillas tipo streak-calendar estilo Duolingo) y "frase del día". |
-| `/dashboard/test` | **Test vocacional** | Flujo de 3 fases ya con diseño "un paso a la vez" (naturalmente mobile-friendly en su lógica, falta solo el visual): `intro` → preguntas una por una con `ProgressBand` (segmentos + contador "Pregunta X/Y" + minutos restantes estimados) → `TestResult`. Subcomponentes en `test-vocacional/components/`: `TestIntro`, `TestProgress`, `TestQuestion`, `TestResult`. |
-| `/dashboard/profesiones` | **Explorar profesiones** | Búsqueda + `FilterSidebar` (categoría académica, modalidad) + grid de `ProgramaCard` con paginación/scroll infinito (`cargandoMas`) + `SkeletonCard` de loading. Header con contador grande de programas totales. |
-| `/dashboard/recursos` | **Recursos** | Tabs de categoría (Todos ✨, Guías 📄, YouTube ▶️, Becas 🎓, Podcasts) + búsqueda inline + grid de `RecursoCard` (cada una con link externo). |
-| `/dashboard/comunidad` | **Comunidad** | 4 tabs: Foros, Historias reales, Preguntas, Convocatorias. **Ya tiene un FAB (botón flotante de acción)** que cambia de función según el tab activo (compartir historia / hacer pregunta) — este patrón ya es mobile-native, consérvalo. Dos modales: `ModalCompartirHistoria`, `ModalHacerPregunta`. Vistas de detalle en rutas propias: `/comunidad/foro/:id`, `/comunidad/historia/:id`, `/comunidad/convocatoria/:id`, `/comunidad/post/:id`. |
-| `/dashboard/admin` | **Panel Admin** (solo rol admin) | 6 módulos con nav propia (`ModulesNav`): Usuarios 👥, Programas 💼, Instituciones 🏛️, Cuestionarios 📋, Preguntas ❓, Contactos, y Configuración (incluye panel de sincronización con datos del Ministerio de Educación). Es una herramienta interna, no cara al estudiante — **prioridad baja para móvil**, puede diseñarse "responsive-legible" en vez de un rediseño móvil completo; queda a tu criterio si vale la pena invertir tiempo de diseño aquí. |
-| `/dashboard/rutas`, `/favoritos`, `/mensajes`, `/ajustes` | **Placeholders** | Actualmente páginas "en construcción" (`PaginaEnConstruccion`), sin funcionalidad real todavía — no requieren diseño detallado, solo un estado vacío coherente si se diseñan. |
+| `/dashboard` | **Inicio** | ⚠️ Rediseñado. `BannerCarousel` (5 slides con autoplay 6s: slide 1 = estado real del test — nuevo/en-progreso/completado, misma lógica que tenía `ContinueSection`; slides 2-5 son banners informativos con copy placeholder, ajustables) → `FeedReciente` (grid de 4 tarjetas de últimas publicaciones de comunidad, `GET /api/comunidad/feed`; si hay menos de 4 reales se rellena con contenido de relleno hardcodeado que **nunca reemplaza** publicaciones reales) → `ProfileSidebar` (ya no rail fijo con completitud — ahora solo card de racha con gradiente accent→primary, con datos reales de `racha_dias`, click va a `/dashboard/racha`, y card de "frase del día"). |
+| `/dashboard/test` | **Test vocacional** | Sin cambios de flujo. `TestResult` ahora además tiene un radar (Chart.js) por categoría y botón "Descargar PDF" (`utils/exportarPDF.js`, 100% cliente con `jspdf`+`html2canvas`) — nice-to-have, no bloquea el resto. |
+| `/dashboard/profesiones` | **Explorar profesiones** | Sin cambios reportados desde el brief original. |
+| `/dashboard/recursos` | **Recursos** | Sin cambios reportados. |
+| `/dashboard/comunidad` | **Comunidad** | Mismo patrón de 4 tabs + FAB. Se agregó: `AutorInfo` (perfil real de un autor, solo visible a admin/moderador), y una barra de moderación (ocultar/eliminar/ver autor) en cada post/historia/pregunta — ambas son admin/moderador-only, **no aplican al estudiante en móvil**, se documentan por completitud. |
+| `/dashboard/perfil` | **Perfil** *(nueva, no existe en móvil)* | Formulario de datos personales (nombre, apellido, ciudad, fecha de nacimiento en 3 selects, nivel educativo) + card "Tu foto de perfil es Broti" con `BrotiAvatar` y acceso a `/dashboard/broti`. |
+| `/dashboard/racha` | **Racha** *(nueva, no existe en móvil)* | Página dedicada con la mascota animada según estado real (feliz/triste/guiño/neutral) y fondo dinámico. Datos reales ya disponibles (`racha_dias`), ver §1.2 de `WEB_PARITY_ROADMAP.md`. |
+| `/dashboard/broti` | **Broti** *(nueva, no existe en móvil)* | Personalización de la mascota — dos tabs, "Mi Broti" (preview + equipados) y "Tienda" (grid por categoría `variante`/`fondo`). Ver §1.2.1 arriba para el catálogo. |
+| `/dashboard/notificaciones` | **Notificaciones** *(nueva, reemplaza el placeholder "Mensajes")* | Lista armada al vuelo (sin tabla propia) combinando respuestas a preguntas propias + likes a historias propias, `GET /api/comunidad/notificaciones`. |
+| `/dashboard/ajustes` | **Ajustes** *(cambió de alcance, no existe en móvil)* | Ya no incluye datos de perfil (se movieron a Perfil) — solo config: tipo de letra, cambio de contraseña (OTP), logout, sección "Próximamente". |
+| `/dashboard/admin` | **Panel Admin** (solo rol admin) | Sin cambios de alcance para móvil — sigue **fuera de alcance**, ahora con una pestaña de Analíticas nueva (radar+barras de afinidad agregada) que tampoco aplica. |
+| `/dashboard/rutas` | **Rutas formativas** | ⚠️ Ya **no es placeholder** — implementación real desde `9564818`: chips de área académica → contenido curado (`contenido_rutas`: materias comunes, temas previos, proyectos, links), sin LLM en tiempo real. Si el usuario ya hizo el test, separa "Relacionadas con tus resultados". Móvil todavía tiene `rutas_screen.dart` como placeholder. |
+| `/dashboard/favoritos` | **Placeholder** | Sigue siendo `PaginaEnConstruccion` en ambos lados — sin cambios. |
 
 ---
 
@@ -259,11 +304,14 @@ Todas las llamadas van a `VITE_API_URL` (backend Express en puerto 3001), autent
 | Service frontend | Endpoints backend | Pantallas que lo usan |
 |---|---|---|
 | `authService.js` | `POST /api/auth/register-perfil` | Registro (`/login` modo signup) |
-| `perfilService.js` | `GET/POST /api/perfil/cuestionario`, `/resultado`, `/recomendaciones`, `GET /api/perfil/:userId` | Test vocacional, Dashboard (perfil), recomendaciones |
+| `perfilService.js` | `GET/POST /api/perfil/cuestionario`, `/resultado`, `/recomendaciones`, `GET/PATCH /api/perfil/:userId`, `PATCH /api/perfil/:userId/broti` | Test vocacional, Perfil, Racha, Broti, recomendaciones |
 | `programasService.js` | `GET /api/programas`, `GET /api/programas/stats` | Profesiones (listado paginado real, ~14.644 programas del MEN) |
-| `comunidadService.js` | `GET/POST /api/comunidad/foros`, `/foros/:id/posts`, `/posts/:id`, `/posts/:id/votar`, `/posts/:id/respuestas`, `/historias`, `/historias/:id`, `/historias/:id/like`, `/preguntas`, `/preguntas/:id`, `/preguntas/:id/respuestas`, `/convocatorias`, `/convocatorias/:id` | Comunidad (los 4 tabs + vistas de detalle) — es la sección con más variedad de tipos de contenido (posts, votos, respuestas, likes) |
+| `comunidadService.js` | `GET/POST /api/comunidad/foros`, `/foros/:id/posts`, `/posts/:id`, `/posts/:id/votar`, `/posts/:id/respuestas`, `/historias`, `/historias/:id`, `/historias/:id/like`, `/preguntas`, `/preguntas/:id`, `/preguntas/:id/respuestas`, `/preguntas/:id/reportar`, `/convocatorias`, `/convocatorias/:id`, `GET /notificaciones`, `GET /feed` | Comunidad (4 tabs + detalle), Notificaciones, Dashboard (`FeedReciente`) |
+| `rutasService.js` | `GET /api/rutas`, `GET /api/rutas/:area` | Rutas formativas (ya real, ver §2.2) |
 | `contactoService.js` | `POST /api/contacto`, `GET/PATCH /api/admin/contactos` | Formulario de contacto público + AdminPanel |
-| `adminService.js` | CRUD completo bajo `/api/admin/*` (usuarios, instituciones, programas, cuestionarios, preguntas, contactos) + `/api/admin/sincronizacion/*` | Panel Admin únicamente |
+| `adminService.js` | CRUD completo bajo `/api/admin/*` (usuarios, instituciones, programas, cuestionarios, preguntas, contactos) + `/api/admin/sincronizacion/*` + `GET /api/admin/analytics` | Panel Admin únicamente — fuera de alcance móvil |
+
+**Fuera de esta tabla, admin/moderador-only, no aplica a móvil:** `PATCH/DELETE /api/comunidad/moderacion/*`, `GET /api/comunidad/moderacion/autor/:userId` (rol `moderador` o `admin`, ver `WEB_PARITY_ROADMAP.md` §2).
 
 **Implicación de diseño:** las pantallas de Comunidad y Profesiones son las que más manejan estados de carga/paginación/infinite-scroll con datos reales — merecen especial atención a skeletons, pull-to-refresh (patrón móvil nativo que no existe en desktop) y estados vacíos. El resto de pantallas informativas (landing, recursos, páginas legales) son más estáticas.
 

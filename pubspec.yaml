@@ -44,3 +44,7 @@ flutter:
     - assets/icons/icon-buscar.svg
     - assets/icons/icon-comunidad.svg
     - assets/icons/icon-inicio.svg
+    - assets/icons/icon-categoria-tecnologia.svg
+    - assets/icons/icon-categoria-salud.svg
+    - assets/icons/icon-categoria-ciencias.svg
+    - assets/icons/icon-categoria-arte.svg

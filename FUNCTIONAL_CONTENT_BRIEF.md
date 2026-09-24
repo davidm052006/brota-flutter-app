@@ -3,6 +3,14 @@
 > Complemento de `MOBILE_DESIGN_BRIEF.md` (que cubría marca/visual). Este documento cubre **la lógica real** de cada pantalla que todavía es placeholder: qué datos maneja, qué reglas de negocio tiene, qué le pasa al usuario en cada estado, y con qué endpoint del backend habla. Todo extraído directamente del código fuente del hermano web (`~/Proyectos/Documentacion_Brota/frontend/`), no inventado ni aproximado.
 >
 > **Regla de sincronización del proyecto:** el repo web es la fuente de verdad de la lógica de negocio. El móvil **traduce** esa lógica a Dart/Flutter con el patrón Clean Architecture ya establecido en `lib/features/auth/` (domain = contratos + entidades, data = implementación contra el backend, presentation = UI + controllers) — no la reinventa. Cuando el web cambie una regla de negocio (un endpoint, un cálculo, una validación), este documento queda desactualizado en ese punto puntual; hay que volver a leer el archivo fuente citado abajo antes de tocar la feature correspondiente, no confiar en que este brief envejece bien indefinidamente.
+>
+> ⚠️ **Vigencia (2026-08-23):** escrito 2026-08-05, con 48 commits del
+> repo web desde entonces. Las secciones 1-4 (test vocacional,
+> profesiones, recursos, comunidad) siguen vigentes — se verificó contra
+> el código actual y no cambiaron de forma sustancial. La sección 5
+> (Rutas) estaba desactualizada y se corrigió. Se agregaron las
+> secciones 7 y 8 para features nuevas del web sin equivalente móvil.
+> Auditoría completa: `WEB_PARITY_ROADMAP.md`.
 
 ---
 
@@ -229,12 +237,82 @@ Detalle de UX menor pero real: si el usuario está en `/dashboard/comunidad` y t
 
 ---
 
-## 5. Rutas — sin contenido todavía, en ambos lados
+## 5. Rutas — ⚠️ corregido 2026-08-23, ya NO es placeholder
 
-`/dashboard/rutas` es un placeholder también en el web (`PaginaEnConstruccion`, sin funcionalidad real). No hay nada que replicar aquí — el móvil ya está a la par con solo tener su placeholder (`rutas_screen.dart` ya existe). No inviertas tiempo de lógica de negocio en esta feature hasta que el web la construya primero.
+`/dashboard/rutas` tiene implementación real desde el commit `9564818`
+("Implementa /dashboard/rutas — v1 acotado, sin llamadas a ningún LLM en
+tiempo real"). El móvil sigue con `rutas_screen.dart` como placeholder —
+esto ya es una brecha real, no algo "a la par" como decía antes esta
+sección.
+
+**Fuente:** `frontend/src/pages/dashboard/Rutas.jsx` + `services/rutasService.js` + tabla `contenido_rutas`.
+
+- `GET /api/rutas` → lista de áreas académicas disponibles (mismas 14 claves que `area_academica` de Profesiones/Test vocacional).
+- `GET /api/rutas/:area` → contenido curado de esa área: `{ area, materias_comunes, temas_previos, proyectos, recursos }` (los tres primeros son arrays de texto; `recursos` es jsonb con links de búsqueda externos).
+- UI: chips de área académica (selección única) → contenido curado de la seleccionada. Contenido 100% estático, editado a mano una vez — no hay generación en vivo ni IA involucrada, así que no hay estados de "generando..." que diseñar.
+- Si el usuario ya completó el test vocacional, la pantalla separa una sección "Relacionadas con tus resultados" usando `categoriaPrincipal`/`categoriaSecundaria` normalizadas con el mismo alias que ya usa el test (`emprendimiento→negocios`, `ambiente→ambiental`, ver sección 1.6). Si no hizo el test, CTA a `/dashboard/test` en su lugar.
+- No requiere autosave, paginación ni estados de carga complejos — es la feature más barata de las pendientes junto con Recursos.
 
 ---
 
 ## 6. Resumen de prioridad sugerida
 
-Coincide con lo que ya identificó la sesión anterior en `CLAUDE.md` del propio proyecto Flutter: **Profesiones** es la de mejor relación esfuerzo/valor para ir después de auth (un solo endpoint paginado, sin estado complejo). Test vocacional es la más valiosa para el producto pero también la más compleja (state machine de 4 fases + autosave local + fallback de cálculo cliente/servidor). Comunidad es la que tiene más superficie de interacción (votos, likes, mejor-respuesta, moderación de historias) — déjala para el final. Recursos es casi gratis (un array estático) y puede hacerse en paralelo con cualquiera de las anteriores sin dependencias.
+Coincide con lo que ya identificó la sesión anterior en `CLAUDE.md` del propio proyecto Flutter: **Profesiones** es la de mejor relación esfuerzo/valor para ir después de auth (un solo endpoint paginado, sin estado complejo). Test vocacional es la más valiosa para el producto pero también la más compleja (state machine de 4 fases + autosave local + fallback de cálculo cliente/servidor). Comunidad es la que tiene más superficie de interacción (votos, likes, mejor-respuesta, moderación de historias) — déjala para el final. Recursos es casi gratis (un array estático) y puede hacerse en paralelo con cualquiera de las anteriores sin dependencias. **Rutas** (sección 5) es igual de barata que Recursos ahora que dejó de ser placeholder — 2 endpoints de solo lectura, sin estado complejo.
+
+Las features nuevas de las secciones 7 y 8 (Notificaciones, Perfil/Racha/Broti) quedan fuera de esta priorización original — ver las fases de `WEB_PARITY_ROADMAP.md` §4 para dónde encajan.
+
+---
+
+## 7. Notificaciones (nueva, sin equivalente móvil)
+
+**Fuente:** `frontend/src/pages/dashboard/Notificaciones.jsx` + `backend/src/controllers/comunidad/notificacionesController.js`.
+
+- `GET /api/comunidad/notificaciones` → array armado **al vuelo**, sin tabla propia de notificaciones ni estado leído/no-leído. Combina server-side: (a) respuestas a preguntas propias donde el autor de la respuesta no soy yo, (b) likes a historias propias — ordenado por fecha desc, recortado a 30 resultados.
+- Forma de cada item: `{ id, tipo: 'respuesta' | 'like', texto, time, fecha, link, linkState }`. `link` navega a la publicación (`/dashboard/comunidad/post/:id` etc.); `linkState` lleva contexto para no tener que refetchear en la pantalla destino.
+- UI: lista de tarjetas, punto de color por tipo (`respuesta` = verde primario, `like` = naranja acento). Sin acciones de "marcar leído" — no existe ese concepto en el modelo de datos actual, no lo inventes.
+- Reemplaza el antiguo placeholder "Mensajes" del mapa de pantallas original — si el móvil tenía algo apuntando a `/dashboard/mensajes`, esa ruta ya no es la correcta del lado web.
+
+---
+
+## 8. Perfil, Racha y Broti (feature nueva, requiere `domain`/`data` propios)
+
+**Fuente:** `frontend/src/pages/dashboard/Perfil.jsx`, `Racha.jsx`, `Broti.jsx` + `perfilService.js` + tabla `perfiles_usuario`.
+
+Las tres pantallas comparten la misma fuente de datos (`perfiles_usuario`) así que tiene sentido construirlas como una sola feature `perfil` en Dart, con tres screens.
+
+### 8.1 Esquema real de `perfiles_usuario`
+```
+id, user_id (→ auth.users), rol ('estudiante'|'orientador'|'moderador'|'admin'),
+nombre, apellido, edad, ciudad, nivel_educativo,
+condiciones_socioeconomicas (jsonb), ultima_actividad, racha_dias,
+baneado_preguntas_hasta, broti_config (jsonb: {variante?, fondo?})
+```
+⚠️ Las tablas `perfiles`/`perfiles_vocacionales` que a veces aparecen mencionadas en briefs viejos **no existen** en el esquema real — no las repliques ni asumas que son la fuente de `perfil`.
+
+### 8.2 Endpoints
+- `GET /api/perfil/:userId` → el objeto de arriba completo. `racha_dias`/`ultima_actividad` se **recalculan server-side en cada llamada** (no confíes en un valor cacheado localmente por más de una sesión).
+- `PATCH /api/perfil/:userId` → actualiza `nombre, apellido, ciudad, nivel_educativo, condiciones_socioeconomicas, edad`. Pantalla `Perfil`.
+- `PATCH /api/perfil/:userId/broti` → body `{ broti_config: {...} }`, valida objeto no-null no-array, reemplaza el campo entero (no hace merge parcial — si vas a cambiar solo `variante`, mandá también el `fondo` actual). Pantalla `Broti`.
+
+### 8.3 Racha (`Racha.jsx`)
+Pantalla dedicada con Broti animado según estado real: usa las mismas 4 expresiones que ya tiene el móvil (`logo-base-limpio`/`logo-guino`/`logo-triste`/`logo-feliz`, ver `MOBILE_DESIGN_BRIEF.md` §1.2.1) mapeadas a algún criterio de racha (el web no fuerza una regla fija documentada — a criterio de diseño, ej. racha activa hoy = feliz, racha rota = triste). Fondo dinámico (no confundir con el `fondo` de personalización de Broti, que es otra cosa — el fondo de esta pantalla es propio, no el equipado).
+
+### 8.4 Broti — catálogo estático (`frontend/src/utils/brotiCatalog.js`)
+```js
+CATEGORIAS = [
+  { key: 'variante', nombre: 'Variante', icono: '🦥' },
+  { key: 'fondo', nombre: 'Fondo', icono: '🖼️' },
+];
+ITEMS = [
+  { id: 'variante-panda', categoria: 'variante', nombre: 'Panda', imagen: '/broti/variantes/panda.png', gratis: true },
+  { id: 'variante-zorro', categoria: 'variante', nombre: 'Zorro', imagen: '/broti/variantes/zorro.png', gratis: false },
+  // + 6 ítems de categoría 'fondo' (fotos .jpg), 2 gratis + 4 "premium"
+];
+MASCOTA_BASE = '/logos/logo-feliz.svg'; // si no hay variante equipada
+```
+`variante` reemplaza la imagen completa de Broti (no son piezas sueltas tipo lentes — se probó y se descartó por bugs de z-order, ver `CLAUDE.md` del repo web). `fondo` es una foto detrás. Ambas categorías se combinan entre sí. **No hay economía real todavía** — "Premium"/`gratis: false` es solo un badge visual, todo es usable sin pago ni validación de compra — no construyas un flujo de pago para esto.
+
+Pantalla `Broti.jsx`: dos tabs — "Mi Broti" (preview grande + lista de equipados con botón "Quitar") y "Tienda" (grid de 3 columnas por categoría, `equipar(itemId)` hace toggle y persiste vía 8.2).
+
+### 8.5 Dónde se ve Broti personalizado (para no dejar el círculo-con-inicial suelto)
+El web reemplazó el avatar genérico por `BrotiAvatar` en: navbar (card flotante de perfil), `Perfil.jsx`, y en Comunidad (foros/historias/preguntas) **solo si la publicación no es anónima**. Si el móvil construye estas pantallas, el mismo criterio aplica — mostrar Broti personalizado donde el web lo hace, no el placeholder genérico documentado en `MOBILE_DESIGN_BRIEF.md` §1.6 (`Avatar.jsx` con inicial, que en el web ya está reemplazado en todos lados).
