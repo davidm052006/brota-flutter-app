@@ -7,6 +7,10 @@ import '../../features/auth/presentation/screens/forgot_password_screen.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/register_screen.dart';
 import '../../features/comunidad/presentation/screens/comunidad_screen.dart';
+import '../../features/cuestionarios/presentation/screens/cuestionario_form_screen.dart';
+import '../../features/cuestionarios/presentation/screens/cuestionarios_screen.dart';
+import '../../features/cuestionarios/presentation/screens/pregunta_form_screen.dart';
+import '../../features/cuestionarios/presentation/screens/preguntas_screen.dart';
 import '../../features/dashboard/presentation/screens/dashboard_screen.dart';
 import '../../features/profesiones/presentation/screens/profesiones_screen.dart';
 import '../../features/recursos/presentation/screens/recursos_screen.dart';
@@ -48,6 +52,47 @@ final Provider<GoRouter> routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/dashboard/rutas',
         builder: (context, state) => const RutasScreen(),
+      ),
+      // CRUD de cuestionarios (solo cuentas con rol institución). Va fuera del
+      // StatefulShellRoute a propósito: sus branches son fijos y esto es un
+      // flujo con push/pop propio, no una sexta pestaña de la barra.
+      GoRoute(
+        path: '/dashboard/cuestionarios',
+        builder: (context, state) => const CuestionariosScreen(),
+        routes: [
+          GoRoute(
+            path: 'nuevo',
+            builder: (context, state) => const CuestionarioFormScreen(),
+          ),
+          GoRoute(
+            path: ':id/editar',
+            builder: (context, state) => CuestionarioFormScreen(
+              cuestionarioId: state.pathParameters['id']!,
+            ),
+          ),
+          GoRoute(
+            path: ':id/preguntas',
+            builder: (context, state) => PreguntasScreen(
+              cuestionarioId: state.pathParameters['id']!,
+              nombreCuestionario: state.extra as String?,
+            ),
+            routes: [
+              GoRoute(
+                path: 'nueva',
+                builder: (context, state) => PreguntaFormScreen(
+                  cuestionarioId: state.pathParameters['id']!,
+                ),
+              ),
+              GoRoute(
+                path: ':preguntaId',
+                builder: (context, state) => PreguntaFormScreen(
+                  cuestionarioId: state.pathParameters['id']!,
+                  preguntaId: state.pathParameters['preguntaId']!,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>

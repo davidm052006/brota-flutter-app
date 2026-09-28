@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/cuestionarios/presentation/providers/cuestionarios_providers.dart';
 import '../../shared/widgets/brota_content_width.dart';
+import '../theme/app_spacing.dart';
 
 /// Bottom navigation scaffold for the authenticated dashboard area.
 ///
@@ -26,7 +29,7 @@ import '../../shared/widgets/brota_content_width.dart';
 /// Wraps [StatefulShellRoute.indexedStack]'s [navigationShell] so each
 /// tab keeps its own navigation stack and scroll position when the user
 /// switches away and back.
-class DashboardShell extends StatelessWidget {
+class DashboardShell extends ConsumerWidget {
   const DashboardShell({required this.navigationShell, super.key});
 
   final StatefulNavigationShell navigationShell;
@@ -57,9 +60,18 @@ class DashboardShell extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final ColorScheme scheme = Theme.of(context).colorScheme;
     final int currentIndex = navigationShell.currentIndex;
+
+    // El CRUD de cuestionarios no es una sexta pestaña: la barra tiene 5
+    // destinos fijos (y los branches del StatefulShellRoute también), y la
+    // sección solo aplica a cuentas institución. Entra como una barra fina
+    // arriba del contenido, global a todo /dashboard/* igual que el tab "Mi
+    // institución" del navbar web. Mientras el rol no esté resuelto o la
+    // cuenta no sea institución, no se muestra nada.
+    final bool esInstitucion =
+        ref.watch(esInstitucionProvider).valueOrNull ?? false;
 
     // El límite de ancho envuelve el Scaffold entero, no solo el body: si
     // se acotara solo el contenido, la barra de tabs seguiría llegando a
@@ -67,7 +79,14 @@ class DashboardShell extends StatelessWidget {
     // la misma app.
     return BrotaContentWidth(
       child: Scaffold(
-        body: navigationShell,
+        body: esInstitucion
+            ? Column(
+                children: [
+                  const _BarraInstitucion(),
+                  Expanded(child: navigationShell),
+                ],
+              )
+            : navigationShell,
         bottomNavigationBar: NavigationBar(
           selectedIndex: currentIndex,
           onDestinationSelected: (int index) => navigationShell.goBranch(
@@ -127,4 +146,54 @@ class _DashboardDestination {
   final String? iconAsset;
   final IconData? materialIcon;
   final String label;
+}
+
+/// Acceso a la administración de cuestionarios propios. Solo se monta cuando
+/// la cuenta tiene rol `institucion` — ver `esInstitucionProvider`.
+class _BarraInstitucion extends StatelessWidget {
+  const _BarraInstitucion();
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
+    return Material(
+      color: theme.colorScheme.secondaryContainer,
+      child: SafeArea(
+        bottom: false,
+        child: InkWell(
+          onTap: () => context.push('/dashboard/cuestionarios'),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.md,
+              vertical: AppSpacing.sm,
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.school_outlined,
+                  size: 18,
+                  color: theme.colorScheme.onSecondaryContainer,
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                Expanded(
+                  child: Text(
+                    'Administrar mis cuestionarios',
+                    style: theme.textTheme.labelLarge?.copyWith(
+                      color: theme.colorScheme.onSecondaryContainer,
+                    ),
+                  ),
+                ),
+                Icon(
+                  Icons.chevron_right,
+                  size: 18,
+                  color: theme.colorScheme.onSecondaryContainer,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
