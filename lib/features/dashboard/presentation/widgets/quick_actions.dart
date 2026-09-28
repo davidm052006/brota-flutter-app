@@ -52,7 +52,8 @@ class QuickActions extends StatelessWidget {
       crossAxisSpacing: AppSpacing.md,
       childAspectRatio: 1.3,
       children: [
-        for (final _QuickAction action in _actions) _QuickActionCard(action: action),
+        for (final _QuickAction action in _actions)
+          _QuickActionCard(action: action),
       ],
     );
   }
@@ -95,9 +96,16 @@ class _QuickActionCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              BrotaIconBadge(assetPath: action.iconAsset, size: 28, iconPadding: 6),
+              BrotaIconBadge(
+                assetPath: action.iconAsset,
+                size: 28,
+                iconPadding: 6,
+              ),
               const SizedBox(height: AppSpacing.sm),
-              Text(action.label, style: AppTypography.labelMd(scheme.onSurface)),
+              Text(
+                action.label,
+                style: AppTypography.labelMd(scheme.onSurface),
+              ),
             ],
           ),
         ),

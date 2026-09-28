@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../shared/widgets/brota_content_width.dart';
+
 /// Bottom navigation scaffold for the authenticated dashboard area.
 ///
 /// Mirrors `frontend/src/components/layout/TopNavbar.jsx`, adapted to
@@ -59,28 +61,34 @@ class DashboardShell extends StatelessWidget {
     final ColorScheme scheme = Theme.of(context).colorScheme;
     final int currentIndex = navigationShell.currentIndex;
 
-    return Scaffold(
-      body: navigationShell,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: currentIndex,
-        onDestinationSelected: (int index) => navigationShell.goBranch(
-          index,
-          initialLocation: index == currentIndex,
+    // El límite de ancho envuelve el Scaffold entero, no solo el body: si
+    // se acotara solo el contenido, la barra de tabs seguiría llegando a
+    // los bordes de la ventana y las dos mitades dejarían de leerse como
+    // la misma app.
+    return BrotaContentWidth(
+      child: Scaffold(
+        body: navigationShell,
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: currentIndex,
+          onDestinationSelected: (int index) => navigationShell.goBranch(
+            index,
+            initialLocation: index == currentIndex,
+          ),
+          destinations: [
+            for (final _DashboardDestination destination in _destinations)
+              NavigationDestination(
+                icon: _TabIcon(
+                  destination: destination,
+                  color: scheme.onSurfaceVariant,
+                ),
+                selectedIcon: _TabIcon(
+                  destination: destination,
+                  color: scheme.primary,
+                ),
+                label: destination.label,
+              ),
+          ],
         ),
-        destinations: [
-          for (final _DashboardDestination destination in _destinations)
-            NavigationDestination(
-              icon: _TabIcon(
-                destination: destination,
-                color: scheme.onSurfaceVariant,
-              ),
-              selectedIcon: _TabIcon(
-                destination: destination,
-                color: scheme.primary,
-              ),
-              label: destination.label,
-            ),
-        ],
       ),
     );
   }
@@ -107,11 +115,14 @@ class _TabIcon extends StatelessWidget {
 }
 
 class _DashboardDestination {
-  const _DashboardDestination({this.iconAsset, this.materialIcon, required this.label})
-    : assert(
-        (iconAsset == null) != (materialIcon == null),
-        'Pasa exactamente uno de iconAsset o materialIcon.',
-      );
+  const _DashboardDestination({
+    this.iconAsset,
+    this.materialIcon,
+    required this.label,
+  }) : assert(
+         (iconAsset == null) != (materialIcon == null),
+         'Pasa exactamente uno de iconAsset o materialIcon.',
+       );
 
   final String? iconAsset;
   final IconData? materialIcon;

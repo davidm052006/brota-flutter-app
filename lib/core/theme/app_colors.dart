@@ -27,7 +27,9 @@ abstract final class AppColors {
   static const Color lightPrimaryDeep = Color(0xFF0E7D43);
   static const Color lightPrimaryInk = Color(0xFFFFFFFF);
   static const Color lightPrimarySoft = Color(0xFFE2F6EC);
-  static const Color lightPrimaryGlow = Color(0x4721BD68); // rgba(33,189,104,.28)
+  static const Color lightPrimaryGlow = Color(
+    0x4721BD68,
+  ); // rgba(33,189,104,.28)
   static const Color lightAccent = Color(0xFFE07A42);
   static const Color lightAccentSoft = Color(0xFFFBE8DC);
   static const Color lightAccentDeep = Color(0xFF8A3D14);
@@ -47,7 +49,9 @@ abstract final class AppColors {
   static const Color darkPrimaryDeep = Color(0xFF1FA862);
   static const Color darkPrimaryInk = Color(0xFF04301C);
   static const Color darkPrimarySoft = Color(0xFF16301F);
-  static const Color darkPrimaryGlow = Color(0x3834D27D); // rgba(52,210,125,.22)
+  static const Color darkPrimaryGlow = Color(
+    0x3834D27D,
+  ); // rgba(52,210,125,.22)
   static const Color darkAccent = Color(0xFFF0996A);
   static const Color darkAccentSoft = Color(0xFF2C2018);
   static const Color darkError = Color(0xFFF87171);

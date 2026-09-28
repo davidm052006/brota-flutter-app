@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../shared/widgets/brota_content_width.dart';
 import '../../../../shared/widgets/under_construction_view.dart';
 
 /// `/dashboard/rutas` — actualmente `PaginaEnConstruccion` también en el
@@ -12,12 +13,16 @@ class RutasScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Rutas formativas')),
-      body: const UnderConstructionView(
-        icon: Icons.route_outlined,
-        title: 'Rutas formativas',
-        message: 'Trazaremos aquí tu camino paso a paso.',
+    // Esta pantalla vive fuera del StatefulShellRoute, así que no hereda
+    // el límite de ancho que DashboardShell aplica a las pestañas.
+    return BrotaContentWidth(
+      child: Scaffold(
+        appBar: AppBar(title: const Text('Rutas formativas')),
+        body: const UnderConstructionView(
+          icon: Icons.route_outlined,
+          title: 'Rutas formativas',
+          message: 'Trazaremos aquí tu camino paso a paso.',
+        ),
       ),
     );
   }

@@ -53,9 +53,7 @@ class ProfesionesScreen extends ConsumerWidget {
 
     final List<Programa> visibleProgramas = state.modalidad == null
         ? state.programas
-        : state.programas
-              .where((p) => p.modalidad == state.modalidad)
-              .toList();
+        : state.programas.where((p) => p.modalidad == state.modalidad).toList();
 
     return Scaffold(
       appBar: AppBar(title: const Text('Explorar profesiones')),
@@ -72,11 +70,13 @@ class ProfesionesScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _SearchField(onChanged: (query) {
-                    ref
-                        .read(programasControllerProvider.notifier)
-                        .onSearchChanged(query);
-                  }),
+                  _SearchField(
+                    onChanged: (query) {
+                      ref
+                          .read(programasControllerProvider.notifier)
+                          .onSearchChanged(query);
+                    },
+                  ),
                   const SizedBox(height: AppSpacing.md),
                   if (state.stats != null)
                     _AreaChipsRow(
@@ -104,8 +104,9 @@ class ProfesionesScreen extends ConsumerWidget {
                 ),
                 ProgramasStatus.error => _ErrorView(
                   message: state.errorMessage ?? 'Ocurrió un error inesperado.',
-                  onRetry: () =>
-                      ref.read(programasControllerProvider.notifier).loadInitial(),
+                  onRetry: () => ref
+                      .read(programasControllerProvider.notifier)
+                      .loadInitial(),
                 ),
                 ProgramasStatus.idle || ProgramasStatus.loadingMore =>
                   visibleProgramas.isEmpty
@@ -114,9 +115,11 @@ class ProfesionesScreen extends ConsumerWidget {
                           programas: visibleProgramas,
                           total: state.total,
                           canLoadMore: state.page < state.totalPages,
-                          isLoadingMore: state.status == ProgramasStatus.loadingMore,
-                          onLoadMore: () =>
-                              ref.read(programasControllerProvider.notifier).loadMore(),
+                          isLoadingMore:
+                              state.status == ProgramasStatus.loadingMore,
+                          onLoadMore: () => ref
+                              .read(programasControllerProvider.notifier)
+                              .loadMore(),
                         ),
               },
             ),
@@ -212,7 +215,9 @@ class _AreaChipsRow extends StatelessWidget {
             ),
             selectedColor: scheme.primary,
             backgroundColor: scheme.surfaceContainerLowest,
-            shape: const RoundedRectangleBorder(borderRadius: AppRadii.fullRadius),
+            shape: const RoundedRectangleBorder(
+              borderRadius: AppRadii.fullRadius,
+            ),
           );
         },
       ),
@@ -244,7 +249,9 @@ class _ModalidadChipsRow extends StatelessWidget {
             ),
             selectedColor: scheme.primary,
             backgroundColor: scheme.surfaceContainerLowest,
-            shape: const RoundedRectangleBorder(borderRadius: AppRadii.fullRadius),
+            shape: const RoundedRectangleBorder(
+              borderRadius: AppRadii.fullRadius,
+            ),
           ),
       ],
     );
@@ -328,9 +335,9 @@ class _ProgramaCard extends StatelessWidget {
         children: [
           Text(
             programa.nombre,
-            style: AppTypography.bodyLg(scheme.onSurface).copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+            style: AppTypography.bodyLg(
+              scheme.onSurface,
+            ).copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: AppSpacing.xs),
           Text(
@@ -365,12 +372,18 @@ class _MetaChip extends StatelessWidget {
     final ColorScheme scheme = Theme.of(context).colorScheme;
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: 2),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.sm,
+        vertical: 2,
+      ),
       decoration: BoxDecoration(
         color: scheme.primaryContainer,
         borderRadius: AppRadii.fullRadius,
       ),
-      child: Text(label, style: AppTypography.labelMd(scheme.onPrimaryContainer)),
+      child: Text(
+        label,
+        style: AppTypography.labelMd(scheme.onPrimaryContainer),
+      ),
     );
   }
 }
