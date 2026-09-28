@@ -2,19 +2,18 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "brota (Opera GX - Web)",
+      "name": "brota (Chrome - Web)",
       "request": "launch",
       "type": "dart",
       "deviceId": "chrome",
-      "env": {
-        "CHROME_EXECUTABLE": "/usr/bin/opera-gx"
-      }
+      "preLaunchTask": "flutter test"
     },
     {
       "name": "brota (Linux desktop)",
       "request": "launch",
       "type": "dart",
-      "deviceId": "linux"
+      "deviceId": "linux",
+      "preLaunchTask": "flutter test"
     }
   ]
 }
