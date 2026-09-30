@@ -13,4 +13,11 @@ abstract final class AppSpacing {
 
   /// Gutter between grid columns / large sections.
   static const double gutter = 24;
+
+  /// Widest a form column grows before it stops stretching. Past this the
+  /// input rows read as a banner instead of a field.
+  static const double maxFormWidth = 420;
+
+  /// Widest the general content column grows on a desktop-sized window.
+  static const double maxContentWidth = 640;
 }

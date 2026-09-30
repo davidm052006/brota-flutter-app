@@ -35,8 +35,9 @@ class DashboardScreen extends ConsumerWidget {
           IconButton(
             icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
             tooltip: isDark ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro',
-            onPressed: () => ref.read(themeModeProvider.notifier).state =
-                isDark ? ThemeMode.light : ThemeMode.dark,
+            onPressed: () => ref.read(themeModeProvider.notifier).state = isDark
+                ? ThemeMode.light
+                : ThemeMode.dark,
           ),
           IconButton(
             icon: const Icon(Icons.logout),

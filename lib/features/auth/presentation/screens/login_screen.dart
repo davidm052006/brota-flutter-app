@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
+import '../../../../shared/widgets/brota_content_width.dart';
 import '../../../../shared/widgets/brota_icon_badge.dart';
 import '../../../../shared/widgets/brota_primary_button.dart';
 import '../../../../shared/widgets/brota_text_field.dart';
@@ -64,81 +65,93 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.screenMargin,
-          ),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: AppSpacing.xxl),
-                _Header(scheme: scheme),
-                const SizedBox(height: AppSpacing.xl),
-                BrotaTextField(
-                  controller: _emailController,
-                  hintText: 'Correo electrónico',
-                  leadingIcon: Icons.alternate_email,
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
-                  autofillHints: const [AutofillHints.email],
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Ingresa tu correo electrónico.';
-                    }
-                    if (!value.contains('@')) {
-                      return 'Ingresa un correo válido.';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: AppSpacing.md),
-                BrotaTextField(
-                  controller: _passwordController,
-                  hintText: 'Contraseña',
-                  leadingIcon: Icons.lock_outline,
-                  obscureText: _obscurePassword,
-                  textInputAction: TextInputAction.done,
-                  autofillHints: const [AutofillHints.password],
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Ingresa tu contraseña.';
-                    }
-                    return null;
-                  },
-                  trailing: IconButton(
-                    icon: Icon(
-                      _obscurePassword
-                          ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined,
-                      color: scheme.onSurfaceVariant,
-                    ),
-                    onPressed: () =>
-                        setState(() => _obscurePassword = !_obscurePassword),
+        // minHeight = alto del viewport para que el formulario quede
+        // centrado cuando sobra pantalla, sin perder el scroll cuando
+        // falta (teclado abierto en móvil).
+        child: LayoutBuilder(
+          builder: (context, constraints) => SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.screenMargin,
+            ),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: BrotaContentWidth(
+                maxWidth: AppSpacing.maxFormWidth,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const SizedBox(height: AppSpacing.xxl),
+                      _Header(scheme: scheme),
+                      const SizedBox(height: AppSpacing.xl),
+                      BrotaTextField(
+                        controller: _emailController,
+                        hintText: 'Correo electrónico',
+                        leadingIcon: Icons.alternate_email,
+                        keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,
+                        autofillHints: const [AutofillHints.email],
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Ingresa tu correo electrónico.';
+                          }
+                          if (!value.contains('@')) {
+                            return 'Ingresa un correo válido.';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: AppSpacing.md),
+                      BrotaTextField(
+                        controller: _passwordController,
+                        hintText: 'Contraseña',
+                        leadingIcon: Icons.lock_outline,
+                        obscureText: _obscurePassword,
+                        textInputAction: TextInputAction.done,
+                        autofillHints: const [AutofillHints.password],
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Ingresa tu contraseña.';
+                          }
+                          return null;
+                        },
+                        trailing: IconButton(
+                          icon: Icon(
+                            _obscurePassword
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
+                            color: scheme.onSurfaceVariant,
+                          ),
+                          onPressed: () => setState(
+                            () => _obscurePassword = !_obscurePassword,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: AppSpacing.sm),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: isLoading
+                              ? null
+                              : () => context.push('/forgot-password'),
+                          child: const Text('¿Olvidaste tu contraseña?'),
+                        ),
+                      ),
+                      const SizedBox(height: AppSpacing.md),
+                      BrotaPrimaryButton(
+                        label: 'Ingresar',
+                        isLoading: isLoading,
+                        trailingIcon: Icons.arrow_forward,
+                        onPressed: _submit,
+                      ),
+                      const SizedBox(height: AppSpacing.xl),
+                      _RegisterFooter(isLoading: isLoading),
+                      const SizedBox(height: AppSpacing.xl),
+                    ],
                   ),
                 ),
-                const SizedBox(height: AppSpacing.sm),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: isLoading
-                        ? null
-                        : () => context.push('/forgot-password'),
-                    child: const Text('¿Olvidaste tu contraseña?'),
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.md),
-                BrotaPrimaryButton(
-                  label: 'Ingresar',
-                  isLoading: isLoading,
-                  trailingIcon: Icons.arrow_forward,
-                  onPressed: _submit,
-                ),
-                const SizedBox(height: AppSpacing.xl),
-                _RegisterFooter(isLoading: isLoading),
-                const SizedBox(height: AppSpacing.xl),
-              ],
+              ),
             ),
           ),
         ),

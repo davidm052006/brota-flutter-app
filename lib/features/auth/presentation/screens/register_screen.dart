@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/app_radii.dart';
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
+import '../../../../shared/widgets/brota_content_width.dart';
 import '../../../../shared/widgets/brota_primary_button.dart';
 import '../../../../shared/widgets/brota_text_field.dart';
 import '../controllers/auth_form_state.dart';
@@ -65,93 +66,102 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Crear cuenta')),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.screenMargin,
-          ),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: AppSpacing.lg),
-                Text(
-                  'Crea tu cuenta y empieza a crecer.',
-                  style: AppTypography.headlineMd(scheme.onSurface),
-                ),
-                const SizedBox(height: AppSpacing.xl),
-                BrotaTextField(
-                  controller: _emailController,
-                  hintText: 'Correo electrónico',
-                  leadingIcon: Icons.alternate_email,
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
-                  autofillHints: const [AutofillHints.email],
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Ingresa tu correo electrónico.';
-                    }
-                    if (!value.contains('@')) {
-                      return 'Ingresa un correo válido.';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: AppSpacing.md),
-                BrotaTextField(
-                  controller: _passwordController,
-                  hintText: 'Contraseña',
-                  leadingIcon: Icons.lock_outline,
-                  obscureText: _obscurePassword,
-                  textInputAction: TextInputAction.next,
-                  autofillHints: const [AutofillHints.newPassword],
-                  validator: (value) {
-                    if (value == null || value.length < 6) {
-                      return 'Mínimo 6 caracteres.';
-                    }
-                    return null;
-                  },
-                  trailing: IconButton(
-                    icon: Icon(
-                      _obscurePassword
-                          ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined,
-                      color: scheme.onSurfaceVariant,
-                    ),
-                    onPressed: () =>
-                        setState(() => _obscurePassword = !_obscurePassword),
+        child: LayoutBuilder(
+          builder: (context, constraints) => SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.screenMargin,
+            ),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: BrotaContentWidth(
+                maxWidth: AppSpacing.maxFormWidth,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const SizedBox(height: AppSpacing.lg),
+                      Text(
+                        'Crea tu cuenta y empieza a crecer.',
+                        style: AppTypography.headlineMd(scheme.onSurface),
+                      ),
+                      const SizedBox(height: AppSpacing.xl),
+                      BrotaTextField(
+                        controller: _emailController,
+                        hintText: 'Correo electrónico',
+                        leadingIcon: Icons.alternate_email,
+                        keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,
+                        autofillHints: const [AutofillHints.email],
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Ingresa tu correo electrónico.';
+                          }
+                          if (!value.contains('@')) {
+                            return 'Ingresa un correo válido.';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: AppSpacing.md),
+                      BrotaTextField(
+                        controller: _passwordController,
+                        hintText: 'Contraseña',
+                        leadingIcon: Icons.lock_outline,
+                        obscureText: _obscurePassword,
+                        textInputAction: TextInputAction.next,
+                        autofillHints: const [AutofillHints.newPassword],
+                        validator: (value) {
+                          if (value == null || value.length < 6) {
+                            return 'Mínimo 6 caracteres.';
+                          }
+                          return null;
+                        },
+                        trailing: IconButton(
+                          icon: Icon(
+                            _obscurePassword
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
+                            color: scheme.onSurfaceVariant,
+                          ),
+                          onPressed: () => setState(
+                            () => _obscurePassword = !_obscurePassword,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: AppSpacing.sm),
+                      _PasswordStrengthMeter(controller: _passwordController),
+                      const SizedBox(height: AppSpacing.sm),
+                      BrotaTextField(
+                        controller: _confirmPasswordController,
+                        hintText: 'Confirmar contraseña',
+                        leadingIcon: Icons.lock_outline,
+                        obscureText: _obscurePassword,
+                        textInputAction: TextInputAction.done,
+                        validator: (value) {
+                          if (value != _passwordController.text) {
+                            return 'Las contraseñas no coinciden.';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: AppSpacing.md),
+                      _TermsCheckbox(
+                        value: _acceptedTerms,
+                        onChanged: (value) =>
+                            setState(() => _acceptedTerms = value),
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      BrotaPrimaryButton(
+                        label: 'Registrarme',
+                        isLoading: isLoading,
+                        onPressed: _acceptedTerms ? _submit : null,
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                    ],
                   ),
                 ),
-                const SizedBox(height: AppSpacing.sm),
-                _PasswordStrengthMeter(controller: _passwordController),
-                const SizedBox(height: AppSpacing.sm),
-                BrotaTextField(
-                  controller: _confirmPasswordController,
-                  hintText: 'Confirmar contraseña',
-                  leadingIcon: Icons.lock_outline,
-                  obscureText: _obscurePassword,
-                  textInputAction: TextInputAction.done,
-                  validator: (value) {
-                    if (value != _passwordController.text) {
-                      return 'Las contraseñas no coinciden.';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: AppSpacing.md),
-                _TermsCheckbox(
-                  value: _acceptedTerms,
-                  onChanged: (value) =>
-                      setState(() => _acceptedTerms = value),
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                BrotaPrimaryButton(
-                  label: 'Registrarme',
-                  isLoading: isLoading,
-                  onPressed: _acceptedTerms ? _submit : null,
-                ),
-                const SizedBox(height: AppSpacing.lg),
-              ],
+              ),
             ),
           ),
         ),

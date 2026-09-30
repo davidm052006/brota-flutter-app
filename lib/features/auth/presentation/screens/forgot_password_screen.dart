@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
+import '../../../../shared/widgets/brota_content_width.dart';
 import '../../../../shared/widgets/brota_icon_badge.dart';
 import '../../../../shared/widgets/brota_primary_button.dart';
 import '../../../../shared/widgets/brota_text_field.dart';
@@ -49,9 +50,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
   void _startResendCooldown() {
     _resendCooldownTimer?.cancel();
     setState(() => _resendCooldownSeconds = 45);
-    _resendCooldownTimer = Timer.periodic(const Duration(seconds: 1), (
-      timer,
-    ) {
+    _resendCooldownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_resendCooldownSeconds <= 1) {
         timer.cancel();
         setState(() => _resendCooldownSeconds = 0);
@@ -86,52 +85,62 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Recuperar contraseña')),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.screenMargin,
+        child: LayoutBuilder(
+          builder: (context, constraints) => SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.screenMargin,
+            ),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: BrotaContentWidth(
+                maxWidth: AppSpacing.maxFormWidth,
+                child: _linkSent
+                    ? _LinkSentView(
+                        email: _emailController.text.trim(),
+                        resendCooldownSeconds: _resendCooldownSeconds,
+                        onResend: isLoading ? null : _submit,
+                      )
+                    : Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            const SizedBox(height: AppSpacing.lg),
+                            Text(
+                              'Te enviaremos un enlace para restablecer tu contraseña.',
+                              style: AppTypography.bodyMd(
+                                scheme.onSurfaceVariant,
+                              ),
+                            ),
+                            const SizedBox(height: AppSpacing.xl),
+                            BrotaTextField(
+                              controller: _emailController,
+                              hintText: 'Correo electrónico',
+                              leadingIcon: Icons.alternate_email,
+                              keyboardType: TextInputType.emailAddress,
+                              textInputAction: TextInputAction.done,
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return 'Ingresa tu correo electrónico.';
+                                }
+                                if (!value.contains('@')) {
+                                  return 'Ingresa un correo válido.';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: AppSpacing.xl),
+                            BrotaPrimaryButton(
+                              label: 'Enviar enlace',
+                              isLoading: isLoading,
+                              onPressed: _submit,
+                            ),
+                          ],
+                        ),
+                      ),
+              ),
+            ),
           ),
-          child: _linkSent
-              ? _LinkSentView(
-                  email: _emailController.text.trim(),
-                  resendCooldownSeconds: _resendCooldownSeconds,
-                  onResend: isLoading ? null : _submit,
-                )
-              : Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const SizedBox(height: AppSpacing.lg),
-                      Text(
-                        'Te enviaremos un enlace para restablecer tu contraseña.',
-                        style: AppTypography.bodyMd(scheme.onSurfaceVariant),
-                      ),
-                      const SizedBox(height: AppSpacing.xl),
-                      BrotaTextField(
-                        controller: _emailController,
-                        hintText: 'Correo electrónico',
-                        leadingIcon: Icons.alternate_email,
-                        keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.done,
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Ingresa tu correo electrónico.';
-                          }
-                          if (!value.contains('@')) {
-                            return 'Ingresa un correo válido.';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: AppSpacing.xl),
-                      BrotaPrimaryButton(
-                        label: 'Enviar enlace',
-                        isLoading: isLoading,
-                        onPressed: _submit,
-                      ),
-                    ],
-                  ),
-                ),
         ),
       ),
     );
