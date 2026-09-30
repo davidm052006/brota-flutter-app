@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/admin/presentation/screens/admin_panel_screen.dart';
 import '../../features/auth/domain/auth_repository.dart';
 import '../../features/auth/presentation/providers/auth_providers.dart';
 import '../../features/auth/presentation/screens/forgot_password_screen.dart';
@@ -48,6 +49,10 @@ final Provider<GoRouter> routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/dashboard/rutas',
         builder: (context, state) => const RutasScreen(),
+      ),
+      GoRoute(
+        path: '/dashboard/admin',
+        builder: (context, state) => const AdminPanelScreen(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>

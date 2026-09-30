@@ -16,6 +16,6 @@ Dio buildDioClient(SupabaseClient supabase) {
       headers: const {'Content-Type': 'application/json'},
     ),
   );
-  dio.interceptors.add(AuthInterceptor(supabase));
+  dio.interceptors.add(AuthInterceptor(supabase, dio));
   return dio;
 }

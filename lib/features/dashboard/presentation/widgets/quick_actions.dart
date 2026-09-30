@@ -40,6 +40,11 @@ class QuickActions extends StatelessWidget {
       label: 'Explorar recursos',
       route: '/dashboard/recursos',
     ),
+    _QuickAction(
+      iconAsset: 'assets/icons/icon-comunidad.svg',
+      label: 'Panel de administración',
+      route: '/dashboard/admin',
+    ),
   ];
 
   @override
