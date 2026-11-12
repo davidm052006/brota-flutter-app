@@ -198,8 +198,8 @@ fases sugeridas, y prevalece sobre los briefs viejos donde haya
 conflicto.
 
 **Antes de empezar cualquier fase de `WEB_PARITY_ROADMAP.md`, lee
-`~/Proyectos/Documentacion_Brota/CHANGELOG_PARA_MOVIL.md`** (repo
-hermano) — desde el 2026-08-23 el proyecto web deja ahí un registro
+`CHANGELOG_PARA_MOVIL.md`** en la raíz de este repositorio — desde el
+2026-08-23 el proyecto web deja allí un registro
 incremental de cambios que afectan al móvil (endpoints, esquema,
 pantallas, marca). Si ese changelog tiene entradas más nuevas que la
 última fecha revisada acá, hay que incorporarlas antes de confiar en los
